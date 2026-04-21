@@ -1,65 +1,96 @@
 import Image from "next/image";
+import Link from "next/link";
+import Marquee from "@/components/Marquee";
+import { products } from "@/lib/data";
 
 export default function Home() {
+  const previewProducts = products.slice(0, 3);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="flex flex-col w-full">
+      {/* Hero Section */}
+      <section className="relative w-full h-[calc(100vh-53px)] flex flex-col md:flex-row border-b border-[var(--color-border-light)] border-b-[0.5px]">
+        {/* Left Half */}
+        <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 md:px-16 border-b md:border-b-0 md:border-r border-[var(--color-brand-primary)] md:border-r-[0.5px]">
+          <h1 className="text-5xl md:text-7xl font-serif leading-[1.1] text-[var(--color-text-primary)] mb-8">
+            <span className="block animate-[fadeIn_1s_ease-out_0.1s_both]">Beauty in</span>
+            <span className="block animate-[fadeIn_1s_ease-out_0.4s_both]">
+              absolute <i className="text-[var(--color-brand-primary)]">tension</i>
+            </span>
+            <span className="block animate-[fadeIn_1s_ease-out_0.7s_both]">and constraint.</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          
+          <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-secondary)] mb-12 animate-[fadeIn_1s_ease-out_1s_both]">
+            Uncompromising design for the obsessive.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+          <Link 
+            href="/catalogue"
+            className="self-start px-8 py-3 border border-[var(--color-brand-primary)] text-[var(--color-brand-primary)] uppercase tracking-[0.2em] text-xs hover:bg-[var(--color-brand-primary)] hover:text-white transition-colors duration-500 animate-[fadeIn_1s_ease-out_1.3s_both]"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            View the Catalogue
+          </Link>
         </div>
-      </main>
+
+        {/* Right Half */}
+        <div className="w-full md:w-1/2 h-full relative bg-[#000]">
+          <Image 
+            src="https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Contradiction moody interior"
+            fill
+            className="object-cover opacity-90"
+            priority
+          />
+          {/* A thin vertical red line divides the two halves. (Already handled by border-r on the left half) */}
+        </div>
+      </section>
+
+      {/* Marquee */}
+      <Marquee />
+
+      {/* Catalogue Preview Grid */}
+      <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px]">
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {previewProducts.map((product, index) => (
+            <Link 
+              key={product.id} 
+              href={`/catalogue/${product.slug}`}
+              className={`relative group border-b md:border-b-0 ${index !== previewProducts.length - 1 ? 'md:border-r border-[var(--color-brand-primary)] border-r-[0.5px]' : ''}`}
+            >
+              <div className="w-full aspect-square relative overflow-hidden bg-[#FAF7F7]">
+                <Image 
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                />
+                {/* Red tint overlay */}
+                <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
+                {/* Hover red slide in at 8% */}
+                <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+              </div>
+              <div className="p-6 flex justify-between items-end border-t border-[var(--color-brand-primary)] border-t-[0.5px]">
+                <div>
+                  <h3 className="font-serif text-2xl mb-2 text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">{product.name}</h3>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{product.material}</p>
+                </div>
+                <div className="text-[var(--color-brand-primary)] opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-500 ease-out">
+                  →
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Philosophy Strip */}
+      <section className="w-full py-32 px-6 flex justify-center items-center bg-[#FFFFFF]">
+        <blockquote className="max-w-4xl text-center border-y border-[var(--color-brand-primary)] border-y-[0.5px] py-12">
+          <p className="font-serif italic text-3xl md:text-5xl leading-tight text-[var(--color-text-primary)]">
+            "A room is not a container for comfort. It is a stage for the deliberate."
+          </p>
+        </blockquote>
+      </section>
     </div>
   );
 }
