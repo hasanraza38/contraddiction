@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="w-full border-t border-[var(--color-border-light)] border-t-[0.5px] py-8 px-6 bg-[#FFFFFF]">
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center">
-          <Image src="/contra-logo.png" alt="Contradiction Logo" width={300} height={40} className="h-8 md:h-10 w-auto object-contain" />
+          <Image src="/contra-logo-v2.png" alt="Contradiction Logo" width={300} height={40} className="h-6 md:h-8 w-auto object-contain" />
         </div>
         
         <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] text-center">

@@ -22,7 +22,7 @@ export default function Navbar() {
       <nav className="fixed top-0 w-full bg-[#FFFFFF] z-50 border-b border-[var(--color-border-light)] border-b-[0.5px]">
         <div className="px-6 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center">
-            <Image src="/contra-logo.png" alt="Contradiction Logo" width={300} height={40} className="h-8 md:h-10 w-auto object-contain" priority />
+            <Image src="/contra-logo-v2.png" alt="Contradiction Logo" width={300} height={40} className="h-6 md:h-8 w-auto object-contain" priority />
           </Link>
 
           {/* Desktop Nav */}
