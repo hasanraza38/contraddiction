@@ -32,9 +32,11 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-[#FFFFFF] text-[#0D0D0D]">
         <Navbar />
-        {children}
+        <main className="flex-grow pt-[53px] w-full">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

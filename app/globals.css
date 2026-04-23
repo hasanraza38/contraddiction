@@ -40,6 +40,11 @@ strong, b {
 }
 
 ::selection {
-  background-color: var(--color-brand-primary);
-  color: white;
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
