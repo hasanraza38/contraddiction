@@ -43,7 +43,7 @@ export default function JournalArticle({ params }: { params: Promise<{ slug: str
           if (i === pullQuoteIndex) {
             return (
               <blockquote key={i} className="my-12 pl-6 md:pl-12 border-l-[2px] border-[var(--color-brand-primary)] font-serif italic text-[24px] md:text-[32px] text-[var(--color-text-primary)] leading-tight">
-                "{p}"
+                {`"${p}"`}
               </blockquote>
             );
           }

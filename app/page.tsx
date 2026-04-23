@@ -68,7 +68,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24">
           <div className="w-full md:w-1/2">
             <h2 className="font-serif italic text-3xl md:text-[40px] leading-tight text-[var(--color-text-primary)]">
-              "We do not make furniture. We make arguments."
+              {"We do not make furniture. We make arguments."}
             </h2>
           </div>
           <div className="w-full md:w-1/2 flex flex-col gap-6 text-[16px] md:text-[18px] text-[var(--color-text-primary)] leading-[1.9]">
@@ -259,7 +259,7 @@ export default function Home() {
       {/* Section 9 — Atelier teaser */}
       <section className="w-full py-32 px-6 bg-[#0D0D0D] text-white flex flex-col items-center justify-center text-center">
         <h2 className="font-serif italic text-4xl md:text-[56px] leading-tight mb-8 max-w-4xl">
-          "The work happens in Karachi.<br/>The silence happens in the piece."
+          {`"The work happens in Karachi.`}<br/>{`The silence happens in the piece."`}
         </h2>
         <div className="text-[10px] uppercase tracking-[0.3em] text-[#A0A0A0] mb-12 flex flex-col gap-2">
           <span>8 CRAFTSPEOPLE · 0 CNC MACHINES</span>

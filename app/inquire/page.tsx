@@ -16,7 +16,7 @@ export default function Inquire() {
       <div className="w-full max-w-2xl">
         {/* Editorial Header */}
         <h1 className="font-serif text-[48px] md:text-[64px] text-[var(--color-text-primary)] mb-8 leading-[1.1]">
-          We don't take orders.<br />
+          {`We don't take orders.`}<br />
           We begin conversations.
         </h1>
         

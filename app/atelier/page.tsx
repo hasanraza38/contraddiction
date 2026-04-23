@@ -113,7 +113,7 @@ export default function Atelier() {
       {/* End section */}
       <section className="w-full bg-[var(--color-brand-primary)] text-white py-48 px-6 flex justify-center text-center">
         <h2 className="font-serif italic text-[48px] md:text-[64px] leading-tight max-w-4xl">
-          "Every piece leaves this room once."
+          {`"Every piece leaves this room once."`}
         </h2>
       </section>
     </div>

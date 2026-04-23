@@ -122,7 +122,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
             {/* Craft Note */}
             <div className="mb-16">
               <p className="font-serif italic text-[18px] text-[var(--color-text-secondary)] leading-relaxed">
-                "{product.craftNote}"
+                {`"${product.craftNote}"`}
               </p>
             </div>
 
@@ -196,7 +196,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
       {/* Closing Quote */}
       <section className="w-full py-32 px-6 flex justify-center border-t border-[var(--color-border-light)] border-t-[0.5px]">
         <h2 className="font-serif italic text-3xl md:text-[48px] text-[var(--color-text-primary)] text-center max-w-4xl leading-relaxed">
-          "You don't buy a Contradiction piece. You inherit the argument."
+          {`"You don't buy a Contradiction piece. You inherit the argument."`}
         </h2>
       </section>
     </div>
