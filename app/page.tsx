@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "@/components/Marquee";
+import Hero from "@/components/Hero";
 import { products, journalArticles } from "@/lib/data";
 
 export default function Home() {
@@ -9,56 +10,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       {/* Section 1 — Hero */}
-      <section className="relative w-full min-h-[calc(100vh-53px)] flex flex-col md:flex-row border-b border-[var(--color-border-light)] border-b-[0.5px]">
-        {/* Left side */}
-        <div className="w-full md:w-[55%] flex-1 flex flex-col justify-center px-6 py-24 md:py-0 md:px-16 border-b md:border-b-0 md:border-r border-[var(--color-border-light)] border-r-[0.5px]">
-          <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] absolute top-8 left-6 md:left-16 animate-[fadeIn_1s_ease-out_0.1s_both]">
-            Private Collection — Est. 2024
-          </div>
-          
-          <h1 className="text-5xl md:text-[72px] font-serif leading-[1.1] text-[var(--color-text-primary)] mb-8 mt-12 md:mt-0">
-            <span className="block animate-[fadeIn_1s_ease-out_0.2s_both]">Objects made</span>
-            <span className="block animate-[fadeIn_1s_ease-out_0.4s_both]">
-              to resist <i className="text-[var(--color-brand-primary)]">explanation.</i>
-            </span>
-          </h1>
-          
-          <p className="text-[16px] text-[var(--color-text-secondary)] mb-12 animate-[fadeIn_1s_ease-out_0.6s_both] max-w-md">
-            Furniture for people who have stopped needing to justify what they own.
-          </p>
-
-          <div className="flex gap-4 animate-[fadeIn_1s_ease-out_0.8s_both]">
-            <Link 
-              href="/catalogue"
-              className="px-6 py-3 border border-[var(--color-brand-primary)] text-[var(--color-brand-primary)] uppercase tracking-[0.2em] text-[10px] hover:bg-[var(--color-brand-primary)] hover:text-white transition-colors duration-500"
-            >
-              Enter the Catalogue →
-            </Link>
-            <Link 
-              href="/philosophy"
-              className="px-6 py-3 border border-[#0D0D0D] text-[#0D0D0D] uppercase tracking-[0.2em] text-[10px] hover:bg-[#0D0D0D] hover:text-white transition-colors duration-500"
-            >
-              Our Philosophy →
-            </Link>
-          </div>
-
-          <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] absolute bottom-8 left-6 md:left-16 animate-[fadeIn_1s_ease-out_1s_both]">
-            By appointment — Karachi · Dubai · London
-          </div>
-        </div>
-
-        {/* Right side */}
-        <div className="w-full md:w-[45%] h-[50vh] md:h-auto md:flex-1 relative bg-[#000] border-l-0 md:border-l border-[var(--color-brand-primary)] md:border-l-[2px]">
-          <Image 
-            src="https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?q=80&w=687&auto=format&fit=crop"
-            alt="Contradiction moody interior"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover opacity-90"
-            priority
-          />
-        </div>
-      </section>
+      <Hero />
 
       {/* Section 2 — Marquee */}
       <Marquee />
