@@ -81,7 +81,7 @@ export default function Atelier() {
                   <h3 className="font-serif text-[24px] text-[var(--color-text-primary)]">{item.stage}</h3>
                   <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{item.duration}</span>
                 </div>
-                <p className="font-serif italic text-[18px] text-[var(--color-text-secondary)]">"{item.desc}"</p>
+                <p className="font-serif italic text-[18px] text-[var(--color-text-secondary)]">{`"${item.desc}"`}</p>
               </div>
             ))}
           </div>
@@ -102,7 +102,7 @@ export default function Atelier() {
                 <h3 className="font-serif text-[24px] text-[var(--color-text-primary)] mb-2">{person.name}</h3>
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-6">{person.title}</span>
                 <p className="font-serif italic text-[16px] text-[var(--color-text-secondary)] max-w-[250px]">
-                  "{person.quote}"
+                  {`"${person.quote}"`}
                 </p>
               </div>
             ))}

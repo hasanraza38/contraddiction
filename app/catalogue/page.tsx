@@ -117,7 +117,7 @@ export default function Catalogue() {
       {/* Bottom Band */}
       <div className="w-full py-24 px-6 flex flex-col items-center justify-center text-center gap-6 border-b border-[var(--color-border-light)] border-b-[0.5px]">
         <p className="text-[14px] text-[var(--color-text-secondary)]">
-          Not what you're looking for? Contradiction accepts one bespoke commission per quarter.
+          {`Not what you're looking for? Contradiction accepts one bespoke commission per quarter.`}
         </p>
         <Link href="/inquire" className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] hover:text-[var(--color-brand-hover)] transition-colors">
           Begin a conversation →

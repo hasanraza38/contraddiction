@@ -94,7 +94,7 @@ export default function Philosophy() {
             className="object-cover opacity-30"
           />
           <blockquote className="relative z-10 font-serif italic text-3xl md:text-[56px] text-[#FFFFFF] text-center max-w-4xl leading-relaxed">
-            "A room is not a container for comfort. It is a stage for the deliberate."
+            {`"A room is not a container for comfort. It is a stage for the deliberate."`}
           </blockquote>
         </div>
 
