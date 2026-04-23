@@ -14,7 +14,7 @@ export default function Hero() {
           priority
         />
         {/* Dark overlay to make text readable */}
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/70" />
       </div>
 
       {/* Content overlay */}
