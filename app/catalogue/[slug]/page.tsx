@@ -38,7 +38,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
             />
           </div>
           
-          <div className="h-[120px] flex items-center justify-between px-6 border-t border-[var(--color-border-light)] border-t-[0.5px]">
+          <div className="h-[120px] flex items-center overflow-x-auto justify-between px-6 border-t border-[var(--color-border-light)] border-t-[0.5px]">
             <div className="flex gap-4 h-full py-4">
               {allImages.slice(0, 4).map((img, idx) => (
                 <button 
@@ -50,7 +50,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
                 </button>
               ))}
             </div>
-            <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
+            <div className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
               No. 00{product.id}
             </div>
           </div>
