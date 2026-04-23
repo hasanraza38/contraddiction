@@ -26,7 +26,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
     <div className="flex flex-col w-full bg-[#FFFFFF]">
       <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-53px)] relative">
         {/* Left Panel - Sticky */}
-        <div className="w-full lg:w-[60%] lg:h-[calc(100vh-53px)] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px]">
+        <div className="w-full lg:w-[60%] h-[60vh] lg:h-[calc(100vh-53px)] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px]">
           <div className="flex-grow relative bg-[#FAF7F7]">
             <Image 
               src={activeImage} 
@@ -60,7 +60,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
         <div className="w-full lg:w-[40%] flex flex-col">
           <div className="flex-grow p-6 md:p-12 lg:p-16 flex flex-col">
             {/* Breadcrumb */}
-            <div className="flex gap-2 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)] mb-12">
+            <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)] mb-12">
               <Link href="/catalogue" className="hover:text-[var(--color-text-primary)]">Catalogue</Link>
               <span className="text-[var(--color-brand-primary)]">/</span>
               <span className="hover:text-[var(--color-text-primary)] cursor-pointer">{product.category}</span>

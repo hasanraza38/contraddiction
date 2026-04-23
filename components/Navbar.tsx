@@ -34,7 +34,8 @@ export default function Navbar() {
       >
         <div className="pl-[24px] pr-6 md:pl-[80px] py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center">
-            <Image src="/contra-logo-v2.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority />
+            {/* <Image src="/contra-logo-v2.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority /> */}
+            <Image src="/logo-contradictions.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority />
           </Link>
 
           {/* Desktop Nav */}

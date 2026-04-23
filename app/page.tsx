@@ -4,14 +4,14 @@ import Marquee from "@/components/Marquee";
 import { products, journalArticles } from "@/lib/data";
 
 export default function Home() {
-  const previewProducts = products.slice(0, 3);
+  const previewProducts = products.slice(0, 6);
 
   return (
     <div className="flex flex-col w-full">
       {/* Section 1 — Hero */}
-      <section className="relative w-full h-[calc(100vh-53px)] flex flex-col md:flex-row border-b border-[var(--color-border-light)] border-b-[0.5px]">
+      <section className="relative w-full min-h-[calc(100vh-53px)] flex flex-col md:flex-row border-b border-[var(--color-border-light)] border-b-[0.5px]">
         {/* Left side */}
-        <div className="w-full md:w-[55%] h-full flex flex-col justify-center px-6 md:px-16 border-b md:border-b-0 md:border-r border-[var(--color-border-light)] border-r-[0.5px]">
+        <div className="w-full md:w-[55%] flex-1 flex flex-col justify-center px-6 py-24 md:py-0 md:px-16 border-b md:border-b-0 md:border-r border-[var(--color-border-light)] border-r-[0.5px]">
           <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] absolute top-8 left-6 md:left-16 animate-[fadeIn_1s_ease-out_0.1s_both]">
             Private Collection — Est. 2024
           </div>
@@ -48,7 +48,7 @@ export default function Home() {
         </div>
 
         {/* Right side */}
-        <div className="w-full md:w-[45%] h-full relative bg-[#000] border-l border-[var(--color-brand-primary)] border-l-[2px]">
+        <div className="w-full md:w-[45%] h-[50vh] md:h-auto md:flex-1 relative bg-[#000] border-l-0 md:border-l border-[var(--color-brand-primary)] md:border-l-[2px]">
           <Image 
             src="https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?q=80&w=687&auto=format&fit=crop"
             alt="Contradiction moody interior"
@@ -89,7 +89,7 @@ export default function Home() {
       </section>
 
       {/* Section 4 — Catalogue preview */}
-      <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
+        <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
         <div className="flex justify-between items-center px-6 md:px-16 py-8 border-b border-[var(--color-border-light)] border-b-[0.5px]">
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Current Collection</span>
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">7 of 7 pieces</span>
@@ -101,15 +101,17 @@ export default function Home() {
               href={`/catalogue/${product.slug}`}
               className={`relative group border-b border-[var(--color-brand-primary)] border-b-[0.5px] md:border-b-0 ${index !== previewProducts.length - 1 ? 'md:border-r border-r-[0.5px]' : ''}`}
             >
-              <div className="w-full aspect-square relative overflow-hidden bg-[#FAF7F7]">
+               <div className="w-full aspect-square relative overflow-hidden bg-[#FAF7F7]">
                 <Image 
                   src={product.image}
                   alt={product.name}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500 ease-out" />
+                {/* Red tint overlay */}
+                <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
+                {/* Hover red slide in at 8% */}
+                <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
               </div>
               <div className="p-6 border-t border-[var(--color-brand-primary)] border-t-[0.5px] h-[120px] flex flex-col justify-between">
                 <div>

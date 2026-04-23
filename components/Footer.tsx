@@ -17,7 +17,7 @@ export default function Footer() {
         {/* Left Column */}
         <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[var(--color-border-light)] border-r-[0.5px] flex flex-col justify-between">
           <div>
-            <Image src="/contra-logo-v2.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain mb-4" />
+            <Image src="/logo-contradictions.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain mb-4" />
             <p className="font-serif italic text-xl text-[var(--color-text-secondary)]">
               Objects that resist explanation
             </p>
@@ -40,19 +40,22 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Right Column (Empty to satisfy 3 columns if needed, or something else? 
-            "3 columns divided by 0.5px lines: Left: Logo... Center: Nav... Bottom strip...")
-            Wait, the prompt says "3 columns... Left, Center, Bottom strip" 
-            Actually, maybe the 3rd column is something else? Or the prompt meant 3 parts of the footer?
-            "3 columns divided by 0.5px lines: 
-             Left: Logo + tagline...
-             Center: Navigation links stacked vertically...
-             Bottom strip..."
-            If there is no "Right", maybe it's just 2 columns + bottom strip? Let's make it 2 columns for the main part, or 3 columns and leave right empty, or distribute it. I will leave the third column empty or maybe make it 2 columns.
-            Let's make it 2 columns if only Left and Center were specified. Actually, I will make it 3 columns and leave the right one empty for balance.
-        */}
-        <div className="hidden md:block p-8 md:p-12">
-           {/* Intentional empty space */}
+        
+        <div className="p-8 md:p-12 flex flex-col justify-center items-start gap-6 border-t md:border-t-0 border-[var(--color-border-light)] border-t-[0.5px]">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-[10px] lowercase tracking-[0.3em] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            @contradictionspk
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 text-[10px] lowercase tracking-[0.3em] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+            @contradictionspk
+          </a>
         </div>
       </div>
 

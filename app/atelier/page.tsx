@@ -32,14 +32,14 @@ export default function Atelier() {
       {/* 2-column layout */}
       <div className="w-full flex flex-col-reverse md:flex-row border-b border-[var(--color-border-light)] border-b-[0.5px]">
         {/* Left: Stacked images */}
-        <div className="w-full md:w-[40%] flex flex-col border-r border-[var(--color-border-light)] border-r-[0.5px]">
+        <div className="w-full md:w-[40%] grid grid-cols-2 md:flex md:flex-col border-b md:border-b-0 md:border-r border-[var(--color-border-light)] md:border-r-[0.5px]">
           {[
             "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=800&auto=format&fit=crop"
           ].map((img, i) => (
-            <div key={i} className={`w-full aspect-[3/4] relative ${i !== 3 ? 'border-b border-[var(--color-border-light)] border-b-[0.5px]' : ''}`}>
+            <div key={i} className={`w-full aspect-[4/5] md:aspect-[3/4] relative border-[var(--color-border-light)] ${i % 2 === 0 ? 'border-r border-r-[0.5px] md:border-r-0' : ''} ${i < 2 ? 'border-b border-b-[0.5px] md:border-b-0' : ''} ${i !== 3 ? 'md:border-b md:border-b-[0.5px]' : ''}`}>
               <Image src={img} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover grayscale" alt="Atelier detail" />
             </div>
           ))}
