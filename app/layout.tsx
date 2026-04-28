@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { ApolloProviderWrapper } from "@/lib/apollo-provider";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -33,11 +34,13 @@ export default function RootLayout({
       className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#FFFFFF] text-[#0D0D0D]">
+        <ApolloProviderWrapper>
         <Navbar />
         <main className="flex-grow pt-[53px] w-full">
           {children}
         </main>
         <Footer />
+        </ApolloProviderWrapper>
       </body>
     </html>
   );
