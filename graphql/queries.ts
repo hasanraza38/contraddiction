@@ -1,57 +1,33 @@
 import { gql } from "@apollo/client";
 
-export const GET_ALL_CATEGORIES = gql`
-  query GetAllCategories {
-    projectCategories { nodes{ name slug description } }
-  }
-`;
-
-export const GET_PROJECTS_BY_CATEGORY = gql`
-query GetProjectsByCategory($slug: ID!) {
-  projectCategory(id: $slug, idType: SLUG) {
-    name
-    slug
-
-    projects {
+// ── 1. GET ALL ────────────────────────────────────────────────────────────────
+export const GET_CATALOGUE_ITEMS = gql`
+  query GetCatalogues {
+    catalogues {
       nodes {
         id
         title
         slug
-
-        projectFields {
-          shortDescription
-          mainImage {
-            node {
-              sourceUrl
-            }
+        featuredImage {
+          node {
+            sourceUrl
           }
         }
-      }
-    }
-  }
-}
-`;
-
-
-export const GET_PROJECTS = gql`
-  query GetProjects {
-    projects {
-      nodes {
-        id
-        title
-        slug
-        projectCategories {
+        catalogueCategories {
           nodes {
             name
             slug
           }
         }
-        projectFields {
-          shortDescription
-          mainImage {
-            node{
-              sourceUrl
-            }
+        catalogueDetails {
+          material
+          year
+          argument
+          craftNote
+          origin
+          treatment
+          photoGallery {
+            fullFileUrl
           }
         }
       }
@@ -59,57 +35,165 @@ export const GET_PROJECTS = gql`
   }
 `;
 
-export const GET_TOP_FOUR_PROJECTS = gql`
-  query GetProjects {
-  projects(first: 4) {
-    nodes {
+// ── 2. GET SINGLE BY SLUG ─────────────────────────────────────────────────────
+export const GET_CATALOGUE_BY_SLUG = gql`
+  query GetCatalogueBySlug($slug: ID!) {
+    catalogue(id: $slug, idType: SLUG) {
+      id
       title
       slug
-
-      projectCategories {
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      catalogueCategories {
         nodes {
           name
           slug
         }
       }
+      catalogueDetails {
+        material
+        year
+        craftNote
+        argument
+        origin
+        treatment
+        photoGallery {
+          fullFileUrl
+        }
+      }
+    }
+  }
+`;
 
-      projectFields {
-        shortDescription
-        mainImage {
+// ── 3. GET ONLY 3 (latest/featured) ──────────────────────────────────────────
+export const GET_CATALOGUE_ITEMS_LIMITED = gql`
+  query GetCataloguesLimited($first: Int = 3) {
+    catalogues(first: $first) {
+      nodes {
+        id
+        title
+        slug
+        featuredImage {
           node {
             sourceUrl
+          }
+        }
+        catalogueCategories {
+          nodes {
+            name
+            slug
+          }
+        }
+        catalogueDetails {
+          material
+          year
+          argument
+          craftNote
+          origin
+          treatment
+          photoGallery {
+            fullFileUrl
           }
         }
       }
     }
   }
-}
 `;
 
-export const GET_SINGLE_PROJECT_BY_SLUG = gql`
-  query GetSingleProject($slug: ID!) {
-    project(id: $slug, idType: SLUG) {
-      title
-      slug
-      projectCategories {
-        nodes {
-          name
-        }
-      }
-      projectFields {
-        shortDescription
-        fullDescription
-        location  
-        program
-        totalArea
-        gallery{
-            fullFileUrl
-        }
-        mainImage {
+// ── 4. GET ALL BY CATEGORY SLUG ───────────────────────────────────────────────
+export const GET_CATALOGUES_BY_CATEGORY = gql`
+  query GetCataloguesByCategory($categorySlug: String!) {
+    catalogues(where: { taxQuery: {
+      taxArray: [{
+        taxonomy: CATALOGUECATEGORY
+        field: SLUG
+        terms: [$categorySlug]
+      }]
+    }}) {
+      nodes {
+        id
+        title
+        slug
+        featuredImage {
           node {
             sourceUrl
           }
         }
+        catalogueCategories {
+          nodes {
+            name
+            slug
+          }
+        }
+        catalogueDetails {
+          material
+          year
+          argument
+          craftNote
+          origin
+          treatment
+          photoGallery {
+            fullFileUrl
+          }
+        }
+      }
+    }
+  }
+`;
+
+// ── 5. GET 3 BY CATEGORY SLUG ─────────────────────────────────────────────────
+export const GET_THREE_CATALOGUES_BY_CATEGORY = gql`
+  query GetThreeCataloguesByCategory($categorySlug: String!, $first: Int = 3) {
+    catalogues(first: $first, where: { taxQuery: {
+      taxArray: [{
+        taxonomy: CATALOGUECATEGORY
+        field: SLUG
+        terms: [$categorySlug]
+      }]
+    }}) {
+      nodes {
+        id
+        title
+        slug
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+        catalogueCategories {
+          nodes {
+            name
+            slug
+          }
+        }
+        catalogueDetails {
+          material
+          year
+          argument
+          craftNote
+          origin
+          treatment
+          photoGallery {
+            fullFileUrl
+          }
+        }
+      }
+    }
+  }
+`;
+
+// ── 6. GET ALL CATALOGUE CATEGORIES ──────────────────────────────────────────
+export const GET_CATALOGUE_CATEGORIES = gql`
+  query GetCatalogueCategories {
+    catalogueCategories {
+      nodes {
+        id
+        name
+        slug
+        count
       }
     }
   }
