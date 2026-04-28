@@ -10,6 +10,7 @@ export default function Hero() {
           src="https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?q=80&w=2000&auto=format&fit=crop"
           alt="Contradiction moody interior"
           fill
+          sizes="100vw"
           className="object-cover opacity-80"
           priority
         />

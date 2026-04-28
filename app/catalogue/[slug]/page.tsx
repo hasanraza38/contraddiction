@@ -74,7 +74,6 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
             
             <div className="flex justify-between items-center pb-6 border-b border-[var(--color-border-light)] border-b-[0.5px] mb-12 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
               <span>{product.year}</span>
-              <span>{product.craftsperson}</span>
             </div>
 
             {/* The Argument */}
@@ -104,20 +103,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
               </div>
             </div>
 
-            {/* Dimensions Table */}
-            <div className="mb-16">
-              <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-6">Dimensions</h3>
-              <div className="flex flex-col">
-                <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
-                  <span className="text-[var(--color-text-secondary)]">H / W / D</span>
-                  <span className="text-[var(--color-text-primary)]">{product.dimensions.h} / {product.dimensions.w} / {product.dimensions.d}</span>
-                </div>
-                <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
-                  <span className="text-[var(--color-text-secondary)]">Weight</span>
-                  <span className="text-[var(--color-text-primary)]">{product.dimensions.weight}</span>
-                </div>
-              </div>
-            </div>
+          
 
             {/* Craft Note */}
             <div className="mb-16">
@@ -126,13 +112,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
               </p>
             </div>
 
-            {/* Commission Status */}
-            <div className="mt-auto pt-12 pb-12 flex items-center gap-4 text-[10px] uppercase tracking-[0.2em]">
-              <div className={`w-2.5 h-2.5 border border-[var(--color-brand-primary)] border-[1px] ${product.isCommissioned ? 'bg-[var(--color-brand-primary)]' : 'bg-transparent'}`} />
-              <span className="text-[var(--color-text-primary)]">
-                {product.isCommissioned ? "This piece has been commissioned." : "An open commission is available."}
-              </span>
-            </div>
+          
           </div>
           
           {/* Begin Conversation Button */}

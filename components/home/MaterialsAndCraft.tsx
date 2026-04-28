@@ -1,0 +1,45 @@
+import Image from 'next/image'
+import React from 'react'
+
+const MaterialsAndCraft = () => {
+  return (
+      <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
+        <div className="p-6 md:p-16 flex flex-col md:flex-row gap-16">
+          <div className="w-full md:w-1/2">
+            <h2 className="text-[32px] font-serif text-[var(--color-text-primary)] mb-8">What things are made of.</h2>
+            <p className="text-[16px] text-[var(--color-text-primary)] leading-[1.9]">
+              We do not use veneers. We do not use composites. If a piece looks like stone, it is stone. If it is heavy, it is solid. We source Carrara travertine, oxidised brass, hand-poured concrete, smoked glass, ebonised oak, reclaimed teak, raw linen, and vegetable-tanned leather. The material is the first argument we make.
+            </p>
+          </div>
+          <div className="w-full md:w-1/2 pt-4">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-0 border-t border-[var(--color-border-light)] border-t-[0.5px]">
+              {[
+                { m: "CARRARA TRAVERTINE", o: "ITALY" },
+                { m: "OXIDISED BRASS", o: "UK" },
+                { m: "HAND-POURED CONCRETE", o: "SCOTLAND" },
+                { m: "SMOKED GLASS", o: "CZECH REP." },
+                { m: "EBONISED OAK", o: "FRANCE" },
+                { m: "VEGETABLE-TANNED LEATHER", o: "ARGENTINA" }
+              ].map((item, i) => (
+                <div key={i} className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex flex-col gap-1">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-primary)]">{item.m}</span>
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{item.o}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="w-full h-[60vh] relative border-t border-[var(--color-border-light)] border-t-[0.5px]">
+          <Image 
+            src="https://images.unsplash.com/photo-1682184805271-11671b7ecf4c?q=80&w=1632&auto=format&fit=crop"
+            alt="Crafting process"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      </section>
+  )
+}
+
+export default MaterialsAndCraft

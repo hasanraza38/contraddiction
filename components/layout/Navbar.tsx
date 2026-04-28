@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const links = [
   { name: "Catalogue", href: "/catalogue" },
@@ -19,12 +19,18 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Handle scroll behavior
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
+  useEffect(() => {
+    const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-    });
-  }
+    };
+    
+    handleScroll();
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -35,7 +41,7 @@ export default function Navbar() {
         <div className="pl-[24px] pr-6 md:pl-[80px] py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center">
             {/* <Image src="/contra-logo-v2.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority /> */}
-            <Image src="/logo-contradictions.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority />
+            <Image src="/logo-contradictions.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority loading="eager" />
           </Link>
 
           {/* Desktop Nav */}
