@@ -96,10 +96,10 @@ export default function Catalogue() {
                   </div>
                   
                   {/* Availability Square (strict no border-radius) */}
-                  <div 
+                  {/* <div 
                     className={`w-2.5 h-2.5 mt-1 border border-[var(--color-brand-primary)] border-[1px] ${product.isCommissioned ? 'bg-[var(--color-brand-primary)]' : 'bg-transparent'}`}
                     title={product.isCommissioned ? 'Commissioned' : 'Open'}
-                  />
+                  /> */}
                 </div>
                 <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">
                   View →
