@@ -42,7 +42,7 @@ const CataloguePreview = ({ products }: CataloguePreviewProps) => {
                     <p className="text-[10px] text-[var(--color-text-secondary)]">{product.year}</p>
                   </div>
                 </div>
-                <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-100 md:opacity-0 group-hover:opacity-100 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">
                   View Piece →
                 </div>
               </div>

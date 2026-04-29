@@ -46,7 +46,7 @@ export default async function Journal() {
 
               {/* Read Link (Right) */}
               <div className="w-full md:w-1/4 text-left md:text-center">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-500 ease-out">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] opacity-100 md:opacity-0 group-hover:opacity-100 transform translate-x-0 md:translate-x-2 group-hover:translate-x-0 transition-all duration-500 ease-out">
                   Read →
                 </span>
               </div>
