@@ -105,38 +105,36 @@ export const GET_CATALOGUE_ITEMS_LIMITED = gql`
 
 // ── 4. GET ALL BY CATEGORY SLUG ───────────────────────────────────────────────
 export const GET_CATALOGUES_BY_CATEGORY = gql`
-  query GetCataloguesByCategory($categorySlug: String!) {
-    catalogues(where: { taxQuery: {
-      taxArray: [{
-        taxonomy: CATALOGUECATEGORY
-        field: SLUG
-        terms: [$categorySlug]
-      }]
-    }}) {
-      nodes {
-        id
-        title
-        slug
-        featuredImage {
-          node {
-            sourceUrl
+  query GetCataloguesByCategory($categorySlug: ID!) {
+    catalogueCategory(id: $categorySlug, idType: SLUG) {
+      name
+      slug
+      catalogues(first: 100) {
+        nodes {
+          id
+          title
+          slug
+          featuredImage {
+            node {
+              sourceUrl
+            }
           }
-        }
-        catalogueCategories {
-          nodes {
-            name
-            slug
+          catalogueCategories {
+            nodes {
+              name
+              slug
+            }
           }
-        }
-        catalogueDetails {
-          material
-          year
-          argument
-          craftNote
-          origin
-          treatment
-          photoGallery {
-            fullFileUrl
+          catalogueDetails {
+            material
+            year
+            argument
+            craftNote
+            origin
+            treatment
+            photoGallery {
+              fullFileUrl
+            }
           }
         }
       }
@@ -146,38 +144,36 @@ export const GET_CATALOGUES_BY_CATEGORY = gql`
 
 // ── 5. GET 3 BY CATEGORY SLUG ─────────────────────────────────────────────────
 export const GET_THREE_CATALOGUES_BY_CATEGORY = gql`
-  query GetThreeCataloguesByCategory($categorySlug: String!, $first: Int = 3) {
-    catalogues(first: $first, where: { taxQuery: {
-      taxArray: [{
-        taxonomy: CATALOGUECATEGORY
-        field: SLUG
-        terms: [$categorySlug]
-      }]
-    }}) {
-      nodes {
-        id
-        title
-        slug
-        featuredImage {
-          node {
-            sourceUrl
+query GetThreeCataloguesByCategory($categorySlug: ID!, $first: Int = 3) {
+    catalogueCategory(id: $categorySlug, idType: SLUG) {
+      name
+      slug
+      catalogues(first: $first) {
+        nodes {
+          id
+          title
+          slug
+          featuredImage {
+            node {
+              sourceUrl
+            }
           }
-        }
-        catalogueCategories {
-          nodes {
-            name
-            slug
+          catalogueCategories {
+            nodes {
+              name
+              slug
+            }
           }
-        }
-        catalogueDetails {
-          material
-          year
-          argument
-          craftNote
-          origin
-          treatment
-          photoGallery {
-            fullFileUrl
+          catalogueDetails {
+            material
+            year
+            argument
+            craftNote
+            origin
+            treatment
+            photoGallery {
+              fullFileUrl
+            }
           }
         }
       }

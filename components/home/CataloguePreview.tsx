@@ -14,8 +14,43 @@ const CataloguePreview = () => {
 
   if (loading) {
     return (
-      <section className="w-full h-[400px] flex items-center justify-center border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
-        <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Loading Collection...</span>
+      <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
+        <style>{`
+          @keyframes shimmer {
+            0%   { background-position: -700px 0; }
+            100% { background-position: 700px 0; }
+          }
+          .sk {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+            background-size: 700px 100%;
+            animation: shimmer 1.6s infinite linear;
+          }
+        `}</style>
+
+        {/* Header Bar Skeleton */}
+        <div className="flex justify-between items-center px-6 md:px-16 py-8 border-b border-[var(--color-border-light)] border-b-[0.5px]">
+          <div className="sk h-3 w-32 rounded-none" />
+          <div className="sk h-3 w-16 rounded-none" />
+        </div>
+
+        {/* Grid Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div 
+              key={index} 
+              className={`relative border-b border-[var(--color-brand-primary)] border-b-[0.5px] md:border-b-0 ${index !== 5 ? 'md:border-r border-r-[0.5px]' : ''}`}
+            >
+              <div className="w-full aspect-square sk" />
+              <div className="p-6 border-t border-[var(--color-brand-primary)] border-t-[0.5px] h-[120px] flex flex-col gap-3">
+                <div className="sk h-4 w-3/4 rounded-none" />
+                <div className="flex justify-between items-center mt-1">
+                  <div className="sk h-2 w-20 rounded-none" />
+                  <div className="sk h-2 w-10 rounded-none" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     );
   }

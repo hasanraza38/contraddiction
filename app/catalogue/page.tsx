@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { useQuery } from "@apollo/client/react";
-import { GET_CATALOGUE_ITEMS } from "@/graphql/queries";
+import { GET_CATALOGUE_ITEMS, GET_CATALOGUES_BY_CATEGORY } from "@/graphql/queries";
 import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
 
-const categories = ["All", "Seating", "Tables", "Storage", "Objects", "Lighting"];
+const categories = ["All", "Seating", "Table", "Furniture", "Objects", "Lighting"];
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -28,7 +28,12 @@ const itemVariants: Variants = {
 export default function Catalogue() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
 
-  const { loading, error, data } = useQuery<{ catalogues: { nodes: CatalogueNode[] } }>(GET_CATALOGUE_ITEMS);
+  const queryToUse = activeFilter === "All" ? GET_CATALOGUE_ITEMS : GET_CATALOGUES_BY_CATEGORY;
+  
+  // Note: we use any for data here because the response shape differs between the two queries
+  const { loading, error, data } = useQuery<any>(queryToUse, {
+    variables: activeFilter === "All" ? undefined : { categorySlug: activeFilter.toLowerCase() }
+  });
 
   if (loading) {
     return (
@@ -82,11 +87,14 @@ export default function Catalogue() {
     );
   }
 
-  const products = data ? data.catalogues.nodes.map(transformCatalogue) : [];
+  const rawNodes: CatalogueNode[] = activeFilter === "All" 
+    ? data?.catalogues?.nodes 
+    : data?.catalogueCategory?.catalogues?.nodes;
 
-  const filteredProducts = activeFilter === "All" 
-    ? products 
-    : products.filter(p => p.category === activeFilter);
+  const products = rawNodes ? rawNodes.map(transformCatalogue) : [];
+  
+  // We no longer need local filtering since the GraphQL API handles it for us
+  const filteredProducts = products;
 
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
