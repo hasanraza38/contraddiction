@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
+      {
+        protocol: 'https',
+        hostname: 'darkgreen-deer-608928.hostingersite.com',
+        pathname: '/**', // Matches any path on this domain
+      },
     ],
   },
 };

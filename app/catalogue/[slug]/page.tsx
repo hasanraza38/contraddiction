@@ -1,26 +1,134 @@
 "use client";
 
-import { useState, use } from "react";
+import { useState, use, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { products, Product } from "@/lib/data";
 import { motion } from "framer-motion";
+import { useQuery } from "@apollo/client/react";
+import { GET_CATALOGUE_BY_SLUG, GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
+import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
 
 export default function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
-  const product = products.find((p) => p.slug === resolvedParams.slug);
+  
+  const { loading, error, data } = useQuery<{ catalogue: CatalogueNode }>(GET_CATALOGUE_BY_SLUG, {
+    variables: { slug: resolvedParams.slug }
+  });
 
-  if (!product) {
+  const { data: relatedData } = useQuery<{ catalogues: { nodes: CatalogueNode[] } }>(GET_CATALOGUE_ITEMS_LIMITED, {
+    variables: { first: 4 }
+  });
+
+  const [activeImage, setActiveImage] = useState<string>("");
+
+  useEffect(() => {
+    if (data?.catalogue) {
+      const product = transformCatalogue(data.catalogue);
+      const allImages = [product.image, ...product.photoGallery.map(m => m.url)];
+      setActiveImage(allImages[0]);
+    }
+  }, [data]);
+
+  if (loading || !activeImage) {
+    return (
+      <div className="flex flex-col w-full bg-[#FFFFFF]">
+        <style>{`
+          @keyframes shimmer {
+            0%   { background-position: -700px 0; }
+            100% { background-position: 700px 0; }
+          }
+          .sk {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+            background-size: 700px 100%;
+            animation: shimmer 1.6s infinite linear;
+          }
+        `}</style>
+
+        <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-53px)]">
+          {/* Left panel skeleton */}
+          <div className="w-full lg:w-[60%] h-[60vh] lg:h-[calc(100vh-53px)] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px]">
+            {/* Main image */}
+            <div className="flex-grow sk" />
+            {/* Thumbnails strip */}
+            <div className="h-[120px] flex items-center px-6 gap-4 border-t border-[var(--color-border-light)] border-t-[0.5px]">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="sk h-[80px] aspect-square" />
+              ))}
+            </div>
+          </div>
+
+          {/* Right panel skeleton */}
+          <div className="w-full lg:w-[40%] flex flex-col">
+            <div className="flex-grow p-6 md:p-12 lg:p-16 flex flex-col">
+              {/* Breadcrumb */}
+              <div className="flex gap-3 mb-12">
+                <div className="sk h-2 w-16 rounded-none" />
+                <div className="sk h-2 w-2 rounded-none" />
+                <div className="sk h-2 w-20 rounded-none" />
+                <div className="sk h-2 w-2 rounded-none" />
+                <div className="sk h-2 w-28 rounded-none" />
+              </div>
+
+              {/* Title */}
+              <div className="flex flex-col gap-3 mb-6">
+                <div className="sk h-10 w-3/4 rounded-none" />
+                <div className="sk h-10 w-1/2 rounded-none" />
+              </div>
+
+              {/* Year divider */}
+              <div className="pb-6 border-b border-[var(--color-border-light)] border-b-[0.5px] mb-12">
+                <div className="sk h-2 w-10 rounded-none" />
+              </div>
+
+              {/* The Argument section */}
+              <div className="mb-16">
+                <div className="sk h-2 w-24 rounded-none mb-6" />
+                <div className="flex flex-col gap-3">
+                  {[90, 100, 85, 95, 70].map((w, i) => (
+                    <div key={i} className="sk h-3 rounded-none" style={{ width: `${w}%` }} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Materials table */}
+              <div className="mb-16">
+                <div className="sk h-2 w-20 rounded-none mb-6" />
+                <div className="flex flex-col">
+                  {["Material", "Origin", "Treatment"].map((_, i) => (
+                    <div key={i} className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between">
+                      <div className="sk h-2 w-16 rounded-none" />
+                      <div className="sk h-2 w-24 rounded-none" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Craft note */}
+              <div className="mb-16">
+                <div className="sk h-4 w-full rounded-none mb-3" />
+                <div className="sk h-4 w-4/5 rounded-none" />
+              </div>
+            </div>
+
+            {/* CTA button skeleton */}
+            <div className="sk w-full h-[60px]" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !data?.catalogue) {
     notFound();
   }
 
-  // Get related products
-  const relatedProducts = products.filter(p => p.id !== product.id).slice(0, 3);
-  
-  // Setup images array
-  const allImages = [product.image, ...product.makingOfImages.map(m => m.url)];
-  const [activeImage, setActiveImage] = useState(allImages[0]);
+  const product = transformCatalogue(data.catalogue);
+  const relatedProducts = relatedData 
+    ? relatedData.catalogues.nodes.map(transformCatalogue).filter(p => p.id !== product.id).slice(0, 3)
+    : [];
+
+  const allImages = [product.image, ...product.photoGallery.map(m => m.url)];
 
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
@@ -129,7 +237,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
       <section className="w-full py-32 px-6 md:px-16 border-t border-[var(--color-border-light)] border-t-[0.5px]">
         <h2 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-16 text-center">The Making</h2>
         <div className="flex flex-col gap-16 max-w-6xl mx-auto">
-          {product.makingOfImages.map((img, i) => (
+          {product.photoGallery.map((img, i) => (
             <motion.div 
               key={i} 
               initial={{ opacity: 0, y: 30 }}
@@ -139,9 +247,8 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
               className="flex flex-col gap-4"
             >
               <div className="w-full aspect-[21/9] relative bg-[#FAF7F7]">
-                <Image src={img.url} fill sizes="100vw" className="object-cover grayscale" alt={img.caption} />
+                <Image src={img.url} fill sizes="100vw" className="object-cover grayscale" alt={`Making of ${product.name} ${i+1}`} />
               </div>
-              <p className="text-[12px] text-[var(--color-text-secondary)] lowercase">{img.caption}</p>
             </motion.div>
           ))}
         </div>

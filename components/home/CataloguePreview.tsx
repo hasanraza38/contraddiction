@@ -1,15 +1,32 @@
-import { products } from '@/lib/data';
+"use client";
+
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { useQuery } from "@apollo/client/react";
+import { GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
+import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
 
 const CataloguePreview = () => {
-    const previewProducts = products.slice(0, 6);
+  const { loading, error, data } = useQuery<{ catalogues: { nodes: CatalogueNode[] } }>(GET_CATALOGUE_ITEMS_LIMITED, {
+    variables: { first: 6 },
+  });
+
+  if (loading) {
+    return (
+      <section className="w-full h-[400px] flex items-center justify-center border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
+        <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Loading Collection...</span>
+      </section>
+    );
+  }
+
+  const previewProducts = data ? data.catalogues.nodes.map(transformCatalogue) : [];
+
   return (
      <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
         <div className="flex justify-between items-center px-6 md:px-16 py-8 border-b border-[var(--color-border-light)] border-b-[0.5px]">
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Current Collection</span>
-          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">7 of 7 pieces</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">{previewProducts.length} pieces</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
           {previewProducts.map((product, index) => (

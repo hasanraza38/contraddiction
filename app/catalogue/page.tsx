@@ -4,9 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
-import { products, Category } from "@/lib/data";
+import { useQuery } from "@apollo/client/react";
+import { GET_CATALOGUE_ITEMS } from "@/graphql/queries";
+import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
 
-const categories: (Category | "All")[] = ["All", "Seating", "Tables", "Storage", "Objects", "Lighting"];
+const categories = ["All", "Seating", "Tables", "Storage", "Objects", "Lighting"];
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -24,7 +26,63 @@ const itemVariants: Variants = {
 };
 
 export default function Catalogue() {
-  const [activeFilter, setActiveFilter] = useState<Category | "All">("All");
+  const [activeFilter, setActiveFilter] = useState<string>("All");
+
+  const { loading, error, data } = useQuery<{ catalogues: { nodes: CatalogueNode[] } }>(GET_CATALOGUE_ITEMS);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col w-full bg-[#FFFFFF]">
+        <style>{`
+          @keyframes shimmer {
+            0% { background-position: -600px 0; }
+            100% { background-position: 600px 0; }
+          }
+          .skeleton-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 600px 100%;
+            animation: shimmer 1.6s infinite linear;
+          }
+        `}</style>
+
+        {/* Header skeleton */}
+        <div className="py-24 md:py-32 flex flex-col items-center gap-4 border-b border-[var(--color-brand-primary)] border-b-[0.5px]">
+          <div className="skeleton-shimmer h-6 w-48 rounded-none" />
+          <div className="skeleton-shimmer h-6 w-40 rounded-none" />
+          <div className="skeleton-shimmer h-6 w-36 rounded-none" />
+        </div>
+
+        {/* Filter bar skeleton */}
+        <div className="px-6 py-8 border-b border-[var(--color-brand-primary)] border-b-[0.5px] flex justify-center">
+          <div className="flex items-center gap-8">
+            {[80, 64, 56, 72, 60, 72].map((w, i) => (
+              <div key={i} className="skeleton-shimmer h-2 rounded-none" style={{ width: w }} />
+            ))}
+          </div>
+        </div>
+
+        {/* Grid skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-[var(--color-brand-primary)] gap-[0.5px] border-b border-[var(--color-brand-primary)] border-b-[0.5px]">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="bg-[#FFFFFF] flex flex-col">
+              {/* Image area */}
+              <div className="w-full aspect-square skeleton-shimmer" />
+              {/* Info area */}
+              <div className="p-6 flex flex-col gap-3 min-h-[140px]">
+                <div className="skeleton-shimmer h-4 w-3/5 rounded-none" />
+                <div className="flex gap-4">
+                  <div className="skeleton-shimmer h-2 w-24 rounded-none" />
+                  <div className="skeleton-shimmer h-2 w-10 rounded-none" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const products = data ? data.catalogues.nodes.map(transformCatalogue) : [];
 
   const filteredProducts = activeFilter === "All" 
     ? products 
