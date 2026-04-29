@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { client } from "@/lib/apolloClient";
-import { GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
-import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
+import { GET_CATALOGUE_ITEMS_LIMITED, GET_JOURNAL_LIMITED } from "@/graphql/queries";
+import { transformCatalogue, CatalogueNode, transformJournal, JournalNode } from "@/lib/graphql-types";
 import EditorialIntro from "@/components/home/EditorialIntro";
 import Hero from "@/components/home/Hero";
 import Marquee from "@/components/home/Marquee";
@@ -14,14 +14,22 @@ import JournalPreview from "@/components/home/JournalPreview";
 import AtelierTeaser from "@/components/home/AtelierTeaser";
 
 export default async function Home() {
-  const { data } = await client.query<{ catalogues: { nodes: CatalogueNode[] } }>({
-    query: GET_CATALOGUE_ITEMS_LIMITED,
-    variables: { first: 7 },
-  });
+  const [catalogueResponse, journalResponse] = await Promise.all([
+    client.query<{ catalogues: { nodes: CatalogueNode[] } }>({
+      query: GET_CATALOGUE_ITEMS_LIMITED,
+      variables: { first: 7 },
+    }),
+    client.query<{ journals: { nodes: JournalNode[] } }>({
+      query: GET_JOURNAL_LIMITED,
+      variables: { first: 3 },
+    })
+  ]);
 
-  const products = data?.catalogues?.nodes.map(transformCatalogue) || [];
+  const products = catalogueResponse.data?.catalogues?.nodes.map(transformCatalogue) || [];
   const previewProducts = products.slice(0, 6);
   const featuredProduct = products[6];
+
+  const articles = journalResponse.data?.journals?.nodes.map(transformJournal) || [];
 
   return (
     <div className="flex flex-col w-full">
@@ -47,7 +55,7 @@ export default async function Home() {
       <MaterialsAndCraft/>
 
       {/* Section 8 — Journal preview */}
-      <JournalPreview/>
+      <JournalPreview articles={articles} />
 
       {/* Section 9 — Atelier teaser */}
       <AtelierTeaser/>

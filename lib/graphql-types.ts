@@ -62,3 +62,40 @@ export const transformCatalogue = (node: CatalogueNode): NormalizedCatalogue => 
     photoGallery: node.catalogueDetails?.photoGallery?.map(p => ({ url: p.fullFileUrl })) || []
   };
 };
+
+export interface JournalDetails {
+  excerpt: string;
+  readTime: string;
+  content: string;
+}
+
+export interface JournalNode {
+  id: string;
+  title: string;
+  slug: string;
+  date: string;
+  journalDetails: JournalDetails;
+}
+
+export interface NormalizedJournal {
+  id: string;
+  title: string;
+  slug: string;
+  date: string;
+  excerpt: string;
+  readTime: string;
+  content: string;
+}
+
+export const transformJournal = (node: JournalNode): NormalizedJournal => {
+  return {
+    id: node.id,
+    title: node.title,
+    slug: node.slug,
+    // Format date if needed, assuming the API returns a string
+    date: node.date ? new Date(node.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : "",
+    excerpt: node.journalDetails?.excerpt || "",
+    readTime: node.journalDetails?.readTime || "5 min read",
+    content: node.journalDetails?.content || ""
+  };
+};

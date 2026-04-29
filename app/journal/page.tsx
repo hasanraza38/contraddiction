@@ -1,7 +1,15 @@
 import Link from "next/link";
-import { journalArticles } from "@/lib/data";
+import { client } from "@/lib/apolloClient";
+import { GET_JOURNALS } from "@/graphql/queries";
+import { transformJournal, JournalNode } from "@/lib/graphql-types";
 
-export default function Journal() {
+export default async function Journal() {
+  const { data } = await client.query<{ journals: { nodes: JournalNode[] } }>({
+    query: GET_JOURNALS,
+  });
+
+  const articles = data?.journals?.nodes.map(transformJournal) || [];
+
   return (
     <div className="flex flex-col w-full min-h-[calc(100vh-53px)] bg-[#FFFFFF] items-center">
       {/* Header */}
@@ -13,8 +21,8 @@ export default function Journal() {
 
       {/* Article List */}
       <div className="w-full max-w-5xl flex flex-col">
-        {journalArticles.map((article, i) => (
-          <div key={i} className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px]">
+        {articles.map((article, i) => (
+          <div key={article.id || i} className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px]">
             <Link 
               href={`/journal/${article.slug}`}
               className="flex flex-col md:flex-row items-center py-16 px-6 md:px-0 group hover:bg-[#FAF7F7] transition-colors duration-500"

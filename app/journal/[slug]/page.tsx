@@ -1,22 +1,57 @@
-"use client";
-
-import { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { journalArticles } from "@/lib/data";
+import { client } from "@/lib/apolloClient";
+import { GET_JOURNAL_BY_SLUG, GET_JOURNAL_LIMITED } from "@/graphql/queries";
+import { transformJournal, JournalNode } from "@/lib/graphql-types";
 
-export default function JournalArticle({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = use(params);
-  const article = journalArticles.find((a) => a.slug === resolvedParams.slug);
+export default async function JournalArticle({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  
+  const [articleResponse, relatedResponse] = await Promise.all([
+    client.query<{ journal: JournalNode }>({
+      query: GET_JOURNAL_BY_SLUG,
+      variables: { slug: resolvedParams.slug },
+    }),
+    client.query<{ journals: { nodes: JournalNode[] } }>({
+      query: GET_JOURNAL_LIMITED,
+      variables: { first: 3 },
+    })
+  ]);
 
-  if (!article) {
+  if (articleResponse.error || !articleResponse.data?.journal) {
     notFound();
   }
 
-  const relatedArticles = journalArticles.filter(a => a.slug !== article.slug).slice(0, 2);
+  const article = transformJournal(articleResponse.data.journal);
+  
+  const relatedArticles = relatedResponse.data?.journals?.nodes
+    .map(transformJournal)
+    .filter(a => a.slug !== article.slug)
+    .slice(0, 2) || [];
 
-  // Split content into paragraphs to style one as a pull quote
-  const paragraphs = article.content.split('\n\n');
+  // 1. Convert block tags to actual newlines before stripping to preserve intended spacing
+  let cleanContent = article.content.replace(/<br\s*\/?>/gi, '\n');
+  cleanContent = cleanContent.replace(/<\/p>/gi, '\n\n');
+  cleanContent = cleanContent.replace(/<p[^>]*>/gi, '');
+
+  // 2. Strip all remaining HTML tags
+  cleanContent = cleanContent.replace(/<[^>]+>/g, '');
+
+  // 3. Handle literal escaped backslash-n characters that might be returned by the WP GraphQL API
+  cleanContent = cleanContent.replace(/\\n/g, '\n');
+
+  // 4. Decode common HTML entities from the WYSIWYG editor
+  cleanContent = cleanContent
+    .replace(/&#8216;/g, "'")
+    .replace(/&#8217;/g, "'")
+    .replace(/&#8220;/g, '"')
+    .replace(/&#8221;/g, '"')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&#038;/g, '&');
+
+  // 5. Split into paragraphs, clean whitespace, and filter out empties
+  const paragraphs = cleanContent.split(/\n\s*\n/).map(p => p.trim()).filter(p => p !== '');
   
   // Use the middle paragraph as a pull quote if there are enough paragraphs
   const pullQuoteIndex = Math.floor(paragraphs.length / 2);
@@ -40,23 +75,23 @@ export default function JournalArticle({ params }: { params: Promise<{ slug: str
       {/* Body Text */}
       <div className="w-full max-w-[680px] px-6 flex flex-col gap-8 text-[18px] text-[var(--color-text-primary)] leading-[1.9] mb-32">
         {paragraphs.map((p, i) => {
-          if (i === pullQuoteIndex) {
+          if (i === pullQuoteIndex && paragraphs.length > 1) {
             return (
               <blockquote key={i} className="my-12 pl-6 md:pl-12 border-l-[2px] border-[var(--color-brand-primary)] font-serif italic text-[24px] md:text-[32px] text-[var(--color-text-primary)] leading-tight">
-                {`"${p}"`}
+                {`"${p.trim()}"`}
               </blockquote>
             );
           }
-          return <p key={i}>{p}</p>;
+          return <p key={i}>{p.trim()}</p>;
         })}
       </div>
 
       {/* Footer Tags */}
-      <div className="w-full py-16 border-t border-[var(--color-border-light)] border-t-[0.5px] flex justify-center">
+      {/* <div className="w-full py-16 border-t border-[var(--color-border-light)] border-t-[0.5px] flex justify-center">
         <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
           Filed under: Craft / Objects / Thinking
         </span>
-      </div>
+      </div> */}
 
       {/* Related Articles */}
       <div className="w-full border-t border-[var(--color-border-light)] border-t-[0.5px] bg-[#FAF7F7]">

@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  allowedDevOrigins: ['admonitory-kasandra-penitently.ngrok-free.dev'],
 };
 
 export default nextConfig;

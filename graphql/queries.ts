@@ -194,3 +194,63 @@ export const GET_CATALOGUE_CATEGORIES = gql`
     }
   }
 `;
+
+
+
+
+
+
+export const GET_JOURNALS = gql`
+ query GetJournals {
+  journals {
+    nodes {
+      id
+      title
+      slug
+      date
+      journalDetails {
+        excerpt
+        readTime
+        content
+      }
+    }
+  }
+}
+`;
+
+
+export const GET_JOURNAL_BY_SLUG = gql`
+  query GetJournalBySlug($slug: ID!) {
+  journal(id: $slug, idType: SLUG) {
+    id
+    title
+    slug
+    date
+    journalDetails {
+      excerpt
+      readTime
+      content
+    }
+  }
+}
+`;
+
+export const GET_JOURNAL_LIMITED = gql`
+query GetJournalsLimited($first: Int = 3) {
+  journals(first: $first) {
+    nodes {
+      id
+      title
+      slug
+      date
+      journalDetails {
+        excerpt
+        readTime
+        content
+      }
+    }
+  }
+}
+`;
+
+
