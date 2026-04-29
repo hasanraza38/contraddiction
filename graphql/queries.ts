@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 // ── 1. GET ALL ────────────────────────────────────────────────────────────────
 export const GET_CATALOGUE_ITEMS = gql`
   query GetCatalogues {
-    catalogues {
+    catalogues(first: 100) {
       nodes {
         id
         title

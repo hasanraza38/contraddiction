@@ -27,6 +27,7 @@ const itemVariants: Variants = {
 
 export default function Catalogue() {
   const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const queryToUse = activeFilter === "All" ? GET_CATALOGUE_ITEMS : GET_CATALOGUES_BY_CATEGORY;
   
@@ -96,6 +97,14 @@ export default function Catalogue() {
   // We no longer need local filtering since the GraphQL API handles it for us
   const filteredProducts = products;
 
+  // Pagination Logic
+  const ITEMS_PER_PAGE = 6;
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
       {/* Top Editorial Intro */}
@@ -113,7 +122,10 @@ export default function Catalogue() {
           {categories.map((cat, i) => (
             <div key={cat} className="flex items-center gap-6 md:gap-12">
               <button
-                onClick={() => setActiveFilter(cat)}
+                onClick={() => {
+                  setActiveFilter(cat);
+                  setCurrentPage(1);
+                }}
                 className={`relative text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}`}
               >
                 {cat}
@@ -135,7 +147,7 @@ export default function Catalogue() {
         key={activeFilter}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-[var(--color-brand-primary)] gap-[0.5px] border-b border-[var(--color-brand-primary)] border-b-[0.5px]"
       >
-        {filteredProducts.map((product) => (
+        {paginatedProducts.map((product) => (
           <motion.div variants={itemVariants} key={product.id} className="bg-[#FFFFFF]">
             <Link 
               href={`/catalogue/${product.slug}`}
@@ -175,10 +187,50 @@ export default function Catalogue() {
           </motion.div>
         ))}
         {/* Fill empty cells to maintain grid lines */}
-        {Array.from({ length: (3 - (filteredProducts.length % 3)) % 3 }).map((_, i) => (
+        {Array.from({ length: (3 - (paginatedProducts.length % 3)) % 3 }).map((_, i) => (
           <div key={`empty-${i}`} className="bg-[#FFFFFF] hidden lg:block"></div>
         ))}
       </motion.div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="w-full flex justify-center items-center py-12 gap-8 bg-[#FFFFFF] border-b border-[var(--color-brand-primary)] border-b-[0.5px]">
+          <button 
+            onClick={() => {
+              setCurrentPage(prev => Math.max(prev - 1, 1));
+              window.scrollTo({ top: 300, behavior: 'smooth' });
+            }}
+            disabled={currentPage === 1}
+            className="text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
+          >
+            ← Prev
+          </button>
+          <div className="flex gap-4">
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setCurrentPage(i + 1);
+                  window.scrollTo({ top: 300, behavior: 'smooth' });
+                }}
+                className={`text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${currentPage === i + 1 ? 'text-[var(--color-text-primary)] font-bold' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)]'}`}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+          <button 
+            onClick={() => {
+              setCurrentPage(prev => Math.min(prev + 1, totalPages));
+              window.scrollTo({ top: 300, behavior: 'smooth' });
+            }}
+            disabled={currentPage === totalPages}
+            className="text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
+          >
+            Next →
+          </button>
+        </div>
+      )}
 
       {/* Bottom Band */}
       <div className="w-full py-24 px-6 flex flex-col items-center justify-center text-center gap-6 border-b border-[var(--color-border-light)] border-b-[0.5px]">

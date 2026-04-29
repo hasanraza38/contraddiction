@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { products, journalArticles } from "@/lib/data";
+import { client } from "@/lib/apolloClient";
+import { GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
+import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
 import EditorialIntro from "@/components/home/EditorialIntro";
 import Hero from "@/components/home/Hero";
 import Marquee from "@/components/home/Marquee";
@@ -11,8 +13,15 @@ import MaterialsAndCraft from "@/components/home/MaterialsAndCraft";
 import JournalPreview from "@/components/home/JournalPreview";
 import AtelierTeaser from "@/components/home/AtelierTeaser";
 
-export default function Home() {
+export default async function Home() {
+  const { data } = await client.query<{ catalogues: { nodes: CatalogueNode[] } }>({
+    query: GET_CATALOGUE_ITEMS_LIMITED,
+    variables: { first: 7 },
+  });
+
+  const products = data?.catalogues?.nodes.map(transformCatalogue) || [];
   const previewProducts = products.slice(0, 6);
+  const featuredProduct = products[6];
 
   return (
     <div className="flex flex-col w-full">
@@ -26,10 +35,10 @@ export default function Home() {
      <EditorialIntro />
 
       {/* Section 4 — Catalogue preview */}
-       <CataloguePreview/>
+      <CataloguePreview products={previewProducts} />
 
-      {/* Section 5 — A single featured piece */}
-      <SingleFeaturedProduct/>
+      {/* Section 5 — Single featured product */}
+      <SingleFeaturedProduct product={featuredProduct} />
 
       {/* Section 6 — The Numbers */}
       <Stats/>
