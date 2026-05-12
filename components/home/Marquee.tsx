@@ -5,12 +5,12 @@ export default function Marquee() {
   return (
     <div className="w-full overflow-hidden whitespace-nowrap py-2 border-y border-[var(--color-border-light)] border-y-[0.5px] bg-[#FFFFFF]">
       <div
-        className="inline-block text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] animate-[scroll_90s_linear_infinite]"
+        className="inline-block text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] animate-[scroll_100s_linear_infinite]"
       >
         {repeatedText}
       </div>
       <div
-        className="inline-block text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] animate-[scroll_90s_linear_infinite]"
+        className="inline-block text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] animate-[scroll_100s_linear_infinite]"
       >
         {repeatedText}
       </div>
