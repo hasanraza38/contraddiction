@@ -21,13 +21,13 @@ export default function Hero() {
       {/* Content overlay */}
       <div className="relative z-10 w-full md:w-[55%] flex-1 flex flex-col justify-center px-6 py-24 md:py-0 md:px-16">
         <div className="text-[10px] uppercase tracking-[0.3em] text-white/80 absolute top-8 left-6 md:left-16 animate-[fadeIn_1s_ease-out_0.1s_both]">
-           Private Collection — Est. 2024
+           Private Collection — Est. 2014
         </div>
         
-        <h1 className="text-5xl md:text-[72px] font-serif leading-[1.1] text-white mb-8 mt-12 md:mt-0">
-          <span className="block animate-[fadeIn_1s_ease-out_0.2s_both]">Objects Forged</span>
+        <h1 className="text-5xl md:text-[72px] font-serif leading-[1.1] text-white mb-8 mt-12 md:mt-0 font-extrabold">
+          <span className="block animate-[fadeIn_1s_ease-out_0.2s_both]"> Objects Forged</span>
           <span className="block animate-[fadeIn_1s_ease-out_0.4s_both]">
-           to Defy  <i className="text-[var(--color-brand-primary)]">Possession</i>
+           To Defy  <i className="text-[var(--color-brand-primary)]">Possession</i>
           </span>
         </h1>
         
