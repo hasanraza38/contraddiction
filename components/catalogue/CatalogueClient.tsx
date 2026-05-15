@@ -64,6 +64,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
           </svg>
         </div> */}
 
+
         <h1 className="relative z-10 text-3xl md:text-5xl font-serif italic text-(--color-text-primary) text-center leading-relaxed px-6">
           Form without compromise.<br/>
           Material without apology.<br/>
