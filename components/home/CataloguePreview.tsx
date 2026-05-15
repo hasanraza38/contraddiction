@@ -37,10 +37,10 @@ const CataloguePreview = ({ products }: CataloguePreviewProps) => {
               <div className="p-6 border-t border-[var(--color-brand-primary)] border-t-[0.5px] h-[120px] flex flex-col justify-between">
                 <div>
                   <h3 className="font-serif text-[18px] text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">{product.name}</h3>
-                  <div className="flex justify-between items-center mt-1">
+                  {/* <div className="flex justify-between items-center mt-1">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{product.material}</p>
                     <p className="text-[10px] text-[var(--color-text-secondary)]">{product.year}</p>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-100 md:opacity-0 group-hover:opacity-100 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">
                   View Piece →

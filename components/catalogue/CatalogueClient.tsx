@@ -6,8 +6,7 @@ import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { NormalizedCatalogue } from "@/lib/graphql-types";
 
-const categories = ["All", "Seating", "Table", "Furniture", "Objects", "Lighting"];
-
+// Define container variants
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
@@ -25,9 +24,13 @@ const itemVariants: Variants = {
 
 interface CatalogueClientProps {
   products: NormalizedCatalogue[];
+  fetchedCategories?: string[];
 }
 
-export default function CatalogueClient({ products }: CatalogueClientProps) {
+export default function CatalogueClient({ products, fetchedCategories = [] }: CatalogueClientProps) {
+  // Use fetched categories if provided, otherwise derive from products
+  const dynamicCategories = ["All", ...Array.from(new Set(fetchedCategories.length > 0 ? fetchedCategories : products.map(p => p.category).filter(Boolean)))];
+
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -58,7 +61,7 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
       {/* Filter Bar */}
       <div className="px-6 py-8 border-b border-[var(--color-brand-primary)] border-b-[0.5px] flex justify-center">
         <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-          {categories.map((cat, i) => (
+          {dynamicCategories.map((cat, i) => (
             <div key={cat} className="flex items-center gap-6 md:gap-12">
               <button
                 onClick={() => {
@@ -72,7 +75,7 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
                   <span className="absolute -bottom-1 left-0 w-full h-[0.5px] bg-[var(--color-brand-primary)]"></span>
                 )}
               </button>
-              {i < categories.length - 1 && <span className="text-[var(--color-border-light)] text-[10px]">·</span>}
+              {i < dynamicCategories.length - 1 && <span className="text-[var(--color-border-light)] text-[10px]">·</span>}
             </div>
           ))}
         </div>
@@ -106,10 +109,10 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="font-serif text-[18px] text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">{product.name}</h3>
-                    <div className="flex gap-4 mt-2">
+                    {/* <div className="flex gap-4 mt-2">
                       <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{product.material}</p>
                       <p className="text-[10px] text-[var(--color-text-secondary)]">{product.year}</p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-100 md:opacity-0 group-hover:opacity-100 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">

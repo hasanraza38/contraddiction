@@ -13,6 +13,8 @@ import MaterialsAndCraft from "@/components/home/MaterialsAndCraft";
 import JournalPreview from "@/components/home/JournalPreview";
 import AtelierTeaser from "@/components/home/AtelierTeaser";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const [catalogueResponse, journalResponse] = await Promise.all([
     client.query<{ catalogues: { nodes: CatalogueNode[] } }>({

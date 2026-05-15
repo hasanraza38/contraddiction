@@ -40,10 +40,10 @@ const SingleFeaturedProduct = ({ product }: SingleFeaturedProductProps) => {
                  <span>Craft Note</span>
                  <span className="text-[var(--color-text-primary)]">{product.craftNote || product.treatment}</span>
                </div>
-               <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
+               {/* <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
                  <span>Year</span>
                  <span className="text-[var(--color-text-primary)]">{product.year}</span>
-               </div>
+               </div> */}
              </div>
    
              <Link href={`/catalogue/${product.slug}`} className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] hover:text-[var(--color-brand-hover)] transition-colors">

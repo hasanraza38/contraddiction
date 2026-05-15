@@ -21,7 +21,6 @@ export const GET_CATALOGUE_ITEMS = gql`
         }
         catalogueDetails {
           material
-          year
           argument
           craftNote
           origin
@@ -55,7 +54,6 @@ export const GET_CATALOGUE_BY_SLUG = gql`
       }
       catalogueDetails {
         material
-        year
         craftNote
         argument
         origin
@@ -89,7 +87,6 @@ export const GET_CATALOGUE_ITEMS_LIMITED = gql`
         }
         catalogueDetails {
           material
-          year
           argument
           craftNote
           origin
@@ -127,7 +124,6 @@ export const GET_CATALOGUES_BY_CATEGORY = gql`
           }
           catalogueDetails {
             material
-            year
             argument
             craftNote
             origin
@@ -166,7 +162,6 @@ query GetThreeCataloguesByCategory($categorySlug: ID!, $first: Int = 3) {
           }
           catalogueDetails {
             material
-            year
             argument
             craftNote
             origin
