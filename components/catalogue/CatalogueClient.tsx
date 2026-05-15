@@ -50,29 +50,42 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
       {/* Top Editorial Intro */}
-      <div className="py-24 md:py-32 flex flex-col items-center border-b border-[var(--color-brand-primary)] border-b-[0.5px]">
-        <h1 className="text-3xl md:text-5xl font-serif italic text-[var(--color-text-primary)] text-center leading-relaxed">
-          Seven pieces.<br/>
-          Each made once.<br/>
-          None available.
+      <div className="relative py-28 md:py-40 flex flex-col items-center justify-center border-b border-(--color-brand-primary) border-b-[0.5px] overflow-hidden">
+        {/* Abstract Architectural SVG Background */}
+        {/* <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none text-(--color-text-primary)">
+          <svg viewBox="0 0 1000 500" className="w-full h-full object-cover min-w-[1000px] max-w-none" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="1">
+            <circle cx="500" cy="250" r="400" />
+            <circle cx="500" cy="250" r="280" />
+            <circle cx="500" cy="250" r="160" />
+            <line x1="0" y1="250" x2="1000" y2="250" />
+            <line x1="500" y1="0" x2="500" y2="500" />
+            <line x1="217" y1="50" x2="783" y2="450" />
+            <line x1="217" y1="450" x2="783" y2="50" />
+          </svg>
+        </div> */}
+
+        <h1 className="relative z-10 text-3xl md:text-5xl font-serif italic text-(--color-text-primary) text-center leading-relaxed px-6">
+          Form without compromise.<br/>
+          Material without apology.<br/>
+          The Collection.
         </h1>
       </div>
 
       {/* Filter Bar */}
-      <div className="px-6 py-8 border-b border-[var(--color-brand-primary)] border-b-[0.5px] flex justify-center">
-        <div className="flex flex-wrap justify-center gap-6 md:gap-12">
+      <div className="py-6 md:py-8 border-b border-(--color-brand-primary) border-b-[0.5px] w-full">
+        <div className="flex md:flex-wrap justify-start md:justify-center overflow-x-auto md:overflow-x-visible px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {dynamicCategories.map((cat, i) => (
-            <div key={cat} className="flex items-center gap-6 md:gap-12">
+            <div key={cat} className="flex items-center gap-6 md:gap-12 shrink-0">
               <button
                 onClick={() => {
                   setActiveFilter(cat);
                   setCurrentPage(1);
                 }}
-                className={`relative text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}`}
+                className={`relative pb-1 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary) hover:text-(--color-text-primary)'}`}
               >
                 {cat}
                 {activeFilter === cat && (
-                  <span className="absolute -bottom-1 left-0 w-full h-[0.5px] bg-[var(--color-brand-primary)]"></span>
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] md:h-[0.5px] bg-(--color-brand-primary)"></span>
                 )}
               </button>
               {i < dynamicCategories.length - 1 && <span className="text-[var(--color-border-light)] text-[10px]">·</span>}

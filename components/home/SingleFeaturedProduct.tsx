@@ -1,13 +1,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { NormalizedCatalogue } from "@/lib/graphql-types";
+import { fetchGraphQL } from "@/lib/fetchGraphQL";
+import { GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
+import { transformCatalogue } from "@/lib/graphql-types";
 
-interface SingleFeaturedProductProps {
-  product?: NormalizedCatalogue;
-}
+// Force ISR in case it's used directly
+export const revalidate = 1800;
 
-const SingleFeaturedProduct = ({ product }: SingleFeaturedProductProps) => {
+export default async function SingleFeaturedProduct() {
+  const response = await fetchGraphQL(GET_CATALOGUE_ITEMS_LIMITED, { first: 7 });
+  const products = response.data?.catalogues?.nodes?.map(transformCatalogue) || [];
+  const product = products[6]; // Grab the 7th item as per original logic
+
   if (!product) return null;
 
   return (
@@ -53,5 +58,3 @@ const SingleFeaturedProduct = ({ product }: SingleFeaturedProductProps) => {
          </section>
   )
 }
-
-export default SingleFeaturedProduct

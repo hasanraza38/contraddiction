@@ -1,19 +1,23 @@
 import Link from 'next/link'
 import React from 'react'
-import { NormalizedJournal } from "@/lib/graphql-types";
+import { fetchGraphQL } from "@/lib/fetchGraphQL";
+import { GET_JOURNAL_LIMITED } from "@/graphql/queries";
+import { transformJournal } from "@/lib/graphql-types";
 
-interface JournalPreviewProps {
-  articles: NormalizedJournal[];
-}
+// Force ISR in case it's used directly
+export const revalidate = 1800;
 
-const JournalPreview = ({ articles }: JournalPreviewProps) => {
+export default async function JournalPreview() {
+  const response = await fetchGraphQL(GET_JOURNAL_LIMITED, { first: 3 });
+  const articles = response.data?.journals?.nodes?.map(transformJournal) || [];
+
   return (
    <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
         <div className="px-6 md:px-16 py-8 border-b border-[var(--color-border-light)] border-b-[0.5px]">
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">From the Journal</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
-          {articles.map((article, i) => (
+          {articles.map((article: any, i: number) => (
             <div key={i} className={`p-8 flex flex-col border-b border-[var(--color-border-light)] border-b-[0.5px] md:border-b-0 ${i !== 2 ? 'md:border-r border-r-[0.5px]' : ''}`}>
               <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)] mb-4">{article.date}</span>
               <h3 className="font-serif text-[22px] leading-snug text-[var(--color-text-primary)] mb-4 line-clamp-2">
@@ -31,5 +35,3 @@ const JournalPreview = ({ articles }: JournalPreviewProps) => {
       </section>
   )
 }
-
-export default JournalPreview

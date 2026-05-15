@@ -1,13 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { NormalizedCatalogue } from "@/lib/graphql-types";
+import { fetchGraphQL } from "@/lib/fetchGraphQL";
+import { GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
+import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
 
-interface CataloguePreviewProps {
-  products: NormalizedCatalogue[];
-}
+// Force ISR in case it's used directly
+export const revalidate = 1800;
 
-const CataloguePreview = ({ products }: CataloguePreviewProps) => {
+export default async function CataloguePreview() {
+  const response = await fetchGraphQL(GET_CATALOGUE_ITEMS_LIMITED, { first: 6 });
+  const products = response.data?.catalogues?.nodes?.map(transformCatalogue) || [];
 
   return (
      <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
@@ -16,7 +19,7 @@ const CataloguePreview = ({ products }: CataloguePreviewProps) => {
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">{products.length} pieces</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
-          {products.map((product, index) => (
+          {products.map((product: any, index: number) => (
             <Link 
               key={product.id} 
               href={`/catalogue/${product.slug}`}
@@ -52,5 +55,3 @@ const CataloguePreview = ({ products }: CataloguePreviewProps) => {
       </section>
   )
 }
-
-export default CataloguePreview
