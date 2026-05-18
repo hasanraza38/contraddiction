@@ -89,7 +89,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
                   <span className="absolute bottom-0 left-0 w-full h-[1px] md:h-[0.5px] bg-(--color-brand-primary)"></span>
                 )}
               </button>
-              {i < dynamicCategories.length - 1 && <span className="text-[var(--color-border-light)] text-[10px]">·</span>}
+              {i < dynamicCategories.length - 1 && <span className="text-black font-bold text-[10px]">·</span>}
             </div>
           ))}
         </div>
@@ -123,10 +123,10 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="font-serif text-[18px] text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">{product.name}</h3>
-                    {/* <div className="flex gap-4 mt-2">
+                    <div className="flex gap-4 mt-2">
                       <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{product.material}</p>
-                      <p className="text-[10px] text-[var(--color-text-secondary)]">{product.year}</p>
-                    </div> */}
+                      {/* <p className="text-[10px] text-[var(--color-text-secondary)]">{product.year}</p> */}
+                    </div>
                   </div>
                 </div>
                 <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-100 md:opacity-0 group-hover:opacity-100 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">
