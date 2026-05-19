@@ -51,7 +51,7 @@ export const transformCatalogue = (node: CatalogueNode): NormalizedCatalogue => 
     id: node.id,
     name: node.title,
     slug: node.slug,
-    image: node.featuredImage?.node?.sourceUrl || "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800&auto=format&fit=crop",
+    image: node.featuredImage?.node?.sourceUrl || "",
     category: node.catalogueCategories?.nodes?.[0]?.name || "Uncategorized",
     material: node.catalogueDetails?.material || "",
     year: node.catalogueDetails?.year || "",

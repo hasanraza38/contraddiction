@@ -1,13 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { NormalizedCatalogue } from "@/lib/graphql-types";
+import { fetchGraphQL } from "@/lib/fetchGraphQL";
+import { GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
+import { transformCatalogue, CatalogueNode } from "@/lib/graphql-types";
 
-interface CataloguePreviewProps {
-  products: NormalizedCatalogue[];
-}
+// Force ISR in case it's used directly
+export const revalidate = 1800;
 
-const CataloguePreview = ({ products }: CataloguePreviewProps) => {
+export default async function CataloguePreview() {
+  const response = await fetchGraphQL(GET_CATALOGUE_ITEMS_LIMITED, { first: 6 });
+  const products = response.data?.catalogues?.nodes?.map(transformCatalogue) || [];
 
   return (
      <section className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
@@ -16,7 +19,7 @@ const CataloguePreview = ({ products }: CataloguePreviewProps) => {
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">{products.length} pieces</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
-          {products.map((product, index) => (
+          {products.map((product: any, index: number) => (
             <Link 
               key={product.id} 
               href={`/catalogue/${product.slug}`}
@@ -39,7 +42,7 @@ const CataloguePreview = ({ products }: CataloguePreviewProps) => {
                   <h3 className="font-serif text-[18px] text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">{product.name}</h3>
                   <div className="flex justify-between items-center mt-1">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{product.material}</p>
-                    <p className="text-[10px] text-[var(--color-text-secondary)]">{product.year}</p>
+                    {/* <p className="text-[10px] text-[var(--color-text-secondary)]">{product.year}</p> */}
                   </div>
                 </div>
                 <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-100 md:opacity-0 group-hover:opacity-100 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">
@@ -52,5 +55,3 @@ const CataloguePreview = ({ products }: CataloguePreviewProps) => {
       </section>
   )
 }
-
-export default CataloguePreview

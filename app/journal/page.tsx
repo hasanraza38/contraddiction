@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { client } from "@/lib/apolloClient";
+import { fetchGraphQL } from "@/lib/fetchGraphQL";
 import { GET_JOURNALS } from "@/graphql/queries";
-import { transformJournal, JournalNode } from "@/lib/graphql-types";
+import { transformJournal } from "@/lib/graphql-types";
+
+export const revalidate = 1800; // 30 minutes
 
 export default async function Journal() {
-  const { data } = await client.query<{ journals: { nodes: JournalNode[] } }>({
-    query: GET_JOURNALS,
-  });
+  const { data } = await fetchGraphQL(GET_JOURNALS);
 
   const articles = data?.journals?.nodes.map(transformJournal) || [];
 
@@ -21,7 +21,7 @@ export default async function Journal() {
 
       {/* Article List */}
       <div className="w-full max-w-5xl flex flex-col">
-        {articles.map((article, i) => (
+        {articles.map((article: any, i: number) => (
           <div key={article.id || i} className="w-full border-b border-[var(--color-border-light)] border-b-[0.5px]">
             <Link 
               href={`/journal/${article.slug}`}

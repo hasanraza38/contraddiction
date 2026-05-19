@@ -1,13 +1,18 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { NormalizedCatalogue } from "@/lib/graphql-types";
+import { fetchGraphQL } from "@/lib/fetchGraphQL";
+import { GET_CATALOGUE_ITEMS_LIMITED } from "@/graphql/queries";
+import { transformCatalogue } from "@/lib/graphql-types";
 
-interface SingleFeaturedProductProps {
-  product?: NormalizedCatalogue;
-}
+// Force ISR in case it's used directly
+export const revalidate = 1800;
 
-const SingleFeaturedProduct = ({ product }: SingleFeaturedProductProps) => {
+export default async function SingleFeaturedProduct() {
+  const response = await fetchGraphQL(GET_CATALOGUE_ITEMS_LIMITED, { first: 7 });
+  const products = response.data?.catalogues?.nodes?.map(transformCatalogue) || [];
+  const product = products[6]; // Grab the 7th item as per original logic
+
   if (!product) return null;
 
   return (
@@ -22,36 +27,57 @@ const SingleFeaturedProduct = ({ product }: SingleFeaturedProductProps) => {
                priority
              />
            </div>
-           <div className="w-full md:w-[40%] p-6 md:p-16 flex flex-col justify-center">
-             <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-8">Featured Commission</span>
-             <h2 className="text-[48px] md:text-[64px] font-serif leading-tight text-[var(--color-text-primary)] mb-8">
-               {product.name}
-             </h2>
-             <div className="text-[16px] text-[var(--color-text-primary)] leading-[1.9] flex flex-col gap-4 mb-12 whitespace-pre-wrap">
-               {product.argument}
+           <div className="w-full lg:w-[40%] flex flex-col">
+             <div className="flex-grow p-6 md:p-12 lg:p-16 flex flex-col">
+               <span className="text-[10px] uppercase tracking-[0.3em] text-(--color-brand-primary) mb-8">Featured Commission</span>
+               
+               <h2 className="font-serif text-[48px] md:text-[56px] text-(--color-text-primary) leading-[1.1] mb-12">
+                 {product.name}
+               </h2>
+               
+               {/* The Argument */}
+               <div className="mb-16">
+                 <h3 className="text-[10px] uppercase tracking-[0.3em] text-(--color-brand-primary) mb-6">The Argument</h3>
+                 <div className="flex flex-col gap-4 text-[16px] text-(--color-text-primary) leading-[1.9] whitespace-pre-wrap">
+                   {product.argument}
+                 </div>
+               </div>
+
+               {/* Materials Table */}
+               <div className="mb-16">
+                 <h3 className="text-[10px] uppercase tracking-[0.3em] text-(--color-text-secondary) mb-6">Materials</h3>
+                 <div className="flex flex-col">
+                   <div className="py-4 border-b border-(--color-border-light) border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
+                     <span className="text-(--color-text-secondary)">Material</span>
+                     <span className="text-(--color-text-primary)">{product.material}</span>
+                   </div>
+                   <div className="py-4 border-b border-(--color-border-light) border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
+                     <span className="text-(--color-text-secondary)">Origin</span>
+                     <span className="text-(--color-text-primary)">{product.origin}</span>
+                   </div>
+                   <div className="py-4 border-b border-(--color-border-light) border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
+                     <span className="text-(--color-text-secondary)">Treatment</span>
+                     <span className="text-(--color-text-primary)">{product.treatment}</span>
+                   </div>
+                 </div>
+               </div>
+
+               {/* Craft Note */}
+               <div className="mb-16">
+                 <p className="font-serif italic text-[18px] text-(--color-text-secondary) leading-relaxed">
+                   {`"${product.craftNote}"`}
+                 </p>
+               </div>
              </div>
-             
-             <div className="w-full border-t border-[var(--color-border-light)] border-t-[0.5px] mb-8">
-               <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
-                 <span>Material</span>
-                 <span className="text-[var(--color-text-primary)]">{product.material}</span>
-               </div>
-               <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
-                 <span>Craft Note</span>
-                 <span className="text-[var(--color-text-primary)]">{product.craftNote || product.treatment}</span>
-               </div>
-               <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
-                 <span>Year</span>
-                 <span className="text-[var(--color-text-primary)]">{product.year}</span>
-               </div>
-             </div>
-   
-             <Link href={`/catalogue/${product.slug}`} className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] hover:text-[var(--color-brand-hover)] transition-colors">
-               See full piece →
+
+             {/* View Full Piece Button */}
+             <Link 
+               href={`/catalogue/${product.slug}`} 
+               className="w-full bg-(--color-brand-primary) text-white text-center py-6 text-[10px] uppercase tracking-[0.3em] hover:bg-(--color-brand-hover) transition-colors"
+             >
+               View full piece →
              </Link>
            </div>
          </section>
   )
 }
-
-export default SingleFeaturedProduct

@@ -67,9 +67,9 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
               {product.name}
             </h1>
             
-            <div className="flex justify-between items-center pb-6 border-b border-[var(--color-border-light)] border-b-[0.5px] mb-12 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
+            {/* <div className="flex justify-between items-center pb-6 border-b border-[var(--color-border-light)] border-b-[0.5px] mb-12 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
               <span>{product.year}</span>
-            </div>
+            </div> */}
 
             {/* The Argument */}
             <div className="mb-16">

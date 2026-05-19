@@ -2,11 +2,11 @@ import React from 'react'
 
 const Stats = () => {
   return (
-      <section className="w-full grid grid-cols-2 md:grid-cols-4 border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
+      <section className="w-full grid grid-cols-2 md:grid-cols-3 border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
         {[
           { number: "7", label: "Seven commissions a year. Never more." },
           { number: "14", label: "Fourteen months. One uncompromised creation." },
-          { number: "11", label: "Countries where Contradiction luxury pieces have been permanently installed." },
+          
           { number: "Closed", label: "Current commission availability. The next opening has not been announced." }
 
         ].map((stat, i) => (

@@ -1,32 +1,28 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { client } from "@/lib/apolloClient";
+import { fetchGraphQL } from "@/lib/fetchGraphQL";
 import { GET_JOURNAL_BY_SLUG, GET_JOURNAL_LIMITED } from "@/graphql/queries";
-import { transformJournal, JournalNode } from "@/lib/graphql-types";
+import { transformJournal } from "@/lib/graphql-types";
+
+export const revalidate = 1800; // 30 minutes
 
 export default async function JournalArticle({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   
   const [articleResponse, relatedResponse] = await Promise.all([
-    client.query<{ journal: JournalNode }>({
-      query: GET_JOURNAL_BY_SLUG,
-      variables: { slug: resolvedParams.slug },
-    }),
-    client.query<{ journals: { nodes: JournalNode[] } }>({
-      query: GET_JOURNAL_LIMITED,
-      variables: { first: 3 },
-    })
+    fetchGraphQL(GET_JOURNAL_BY_SLUG, { slug: resolvedParams.slug }).catch(() => null),
+    fetchGraphQL(GET_JOURNAL_LIMITED, { first: 3 }).catch(() => null),
   ]);
 
-  if (articleResponse.error || !articleResponse.data?.journal) {
+  if (!articleResponse?.data?.journal) {
     notFound();
   }
 
   const article = transformJournal(articleResponse.data.journal);
   
-  const relatedArticles = relatedResponse.data?.journals?.nodes
+  const relatedArticles = relatedResponse?.data?.journals?.nodes
     .map(transformJournal)
-    .filter(a => a.slug !== article.slug)
+    .filter((a: any) => a.slug !== article.slug)
     .slice(0, 2) || [];
 
   // 1. Convert block tags to actual newlines before stripping to preserve intended spacing
@@ -101,7 +97,7 @@ export default async function JournalArticle({ params }: { params: Promise<{ slu
           </span>
         </div>
         <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto">
-          {relatedArticles.map((rel, i) => (
+          {relatedArticles.map((rel: any, i: number) => (
             <Link 
               key={i}
               href={`/journal/${rel.slug}`}
