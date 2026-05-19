@@ -74,8 +74,8 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
 
       {/* Filter Bar */}
       {/* border-b border-(--color-brand-primary) border-b-[0.5px] */}
-      <div className="py-6 md:py-8  w-full">
-        <div className="flex md:flex-wrap justify-start md:justify-center overflow-x-auto md:overflow-x-visible px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="py-6 md:py-8 border-b border-(--color-brand-primary) border-b-[0.5px]  w-full">
+        <div className="flex justify-start md:justify-center overflow-x-auto px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {dynamicCategories.map((cat, i) => (
             <div key={cat} className="flex items-center gap-6 md:gap-12 shrink-0">
               <button
@@ -116,7 +116,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
                   alt={product.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  className="object-cover grayscale-0 group-hover:grayscale transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
               </div>
