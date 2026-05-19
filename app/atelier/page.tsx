@@ -49,17 +49,20 @@ export default function Atelier() {
         <div className="w-full md:w-[50%] p-8 md:p-16 lg:p-32 flex flex-col justify-center">
           <div className="max-w-xl mx-auto md:mx-0 text-[16px] md:text-[18px] text-[var(--color-text-primary)] leading-[1.9] flex flex-col gap-8">
             <p>
-              The physical atelier is located in an unmarked warehouse in Karachi. It is deliberately difficult to find. There are no showrooms, no receptionists, and no public tours.
+             The physical atelier is located in an unmarked space in Karachi deliberately removed from the circuits of showrooms, design districts, and trade events that define the conventional luxury furniture industry. There is no signage, no reception, and no public access. This is not a brand decision. It is a practical one. The work that happens here is not improved by an audience, and the people doing it have not asked for one.
             </p>
             <p>
-              Inside, eight craftspeople work in near-total silence. The noise of creation is present—the grinding of stone, the strike of a hammer on hot iron, the slow tearing of thick leather—but there is no unnecessary conversation. The focus is singular and absolute.
+              Inside, a team of specialist craftspeople work across disciplines stone cutting and finishing, iron casting and forging, hardwood joinery, leather working, and surface treatment each operating within their domain with a focus that makes ordinary conversation feel like an intrusion. 
             </p>
             <p>
-              We refuse to use CNC machines or mass-produced hardware. If a piece requires a bolt, we machine the bolt. If it requires a hinge, we forge the hinge. This is not out of nostalgia for old-world craft; it is out of a need for total control. A machine cannot feel the tension in a piece of wood just before it splits.
+              The sounds of the space are specific and deliberate: the low grind of stone against stone, the dense percussion of a hammer finding iron, the long exhale of wood being brought to its final surface. These are not incidental sounds. They are the sound of handmade luxury furniture being built at the only pace that handmade luxury furniture can honestly be built.
             </p>
-            <p>
-              A normal day here sounds like violence and patience in equal measure. A single commission can take up to fourteen months to build. Most of that time is spent waiting—waiting for concrete to cure, for wood to acclimatize, for iron to oxidize. We do not rush the material.
-            </p>
+            {/* <p>
+              We do not use CNC machines, mass-produced hardware, or pre-fabricated components of any kind. If a commission requires a specific bolt, we machine that bolt. If it requires a hinge, we forge that hinge to the exact specification the piece demands, from the exact material the design calls for. This is not a romantic attachment to old-world craft practice. It is a requirement of total control. A machine can execute a file to tolerance. It cannot feel the tension developing in a timber joint before the wood decides to move. Our craftspeople can, and do, and adjust accordingly.
+            </p> */}
+            {/* <p>
+             The consequence of this process is furniture of a resolution that is genuinely difficult to achieve any other way. Surface treatments that read as simple from across the room reveal, on closer inspection, a depth of decision-making that only becomes visible when you have spent time with the object. Joints that appear inevitable were, in reality, the result of multiple attempts and deliberate failure. Every piece that leaves this space has been through a process that most luxury furniture makers would consider excessive. We consider it the minimum standard of honesty.
+            </p> */}
           </div>
         </div>
       </div>

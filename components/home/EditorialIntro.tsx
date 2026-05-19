@@ -12,13 +12,13 @@ const EditorialIntro = () => {
           </div>
           <div className="w-full md:w-1/2 flex flex-col gap-6 text-[16px] md:text-[18px] text-[var(--color-text-primary)] leading-[1.9]">
             <p>
-              There is a particular arrogance to the luxury furniture industry. The assumption that money, spent lavishly enough, purchases taste. That price is a synonym for intention. 
+            The luxury furniture industry assumes price purchases taste. We disagree. The most expensive rooms are often the least interesting. What matters is not expenditure it is the seriousness of the making.
             </p>
             <p>
-              We are not a store. We are not a brand in the conventional sense. We are a private luxury atelier producing seven singular bespoke furniture commissions per year. 
+              Contradiction is not a store. It is a private atelier for clients who have stopped asking what things cost and started asking what things are worth. Every commission is a conversation between client, craftspeople, and space. One object. One room. 
             </p>
             <p>
-              Every handcrafted piece we produce begins as an argument, between the material and the maker, between the object and the room it will inhabit, between permanence and the desire for comfort. We do not resolve that argument. We let it stand.
+             Every piece begins as an argument. Cast iron resists. Stone pushes back. Hardwood has opinions. These are not problems we solve they are tensions we maintain. We do not make objects that accommodate. We make objects that insist.
             </p>
             <Link href="/philosophy" className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] mt-4 hover:text-[var(--color-brand-hover)] transition-colors">
               Read the full philosophy →

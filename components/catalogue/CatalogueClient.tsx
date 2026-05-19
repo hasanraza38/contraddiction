@@ -73,7 +73,8 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
       </div>
 
       {/* Filter Bar */}
-      <div className="py-6 md:py-8 border-b border-(--color-brand-primary) border-b-[0.5px] w-full">
+      {/* border-b border-(--color-brand-primary) border-b-[0.5px] */}
+      <div className="py-6 md:py-8  w-full">
         <div className="flex md:flex-wrap justify-start md:justify-center overflow-x-auto md:overflow-x-visible px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {dynamicCategories.map((cat, i) => (
             <div key={cat} className="flex items-center gap-6 md:gap-12 shrink-0">
@@ -101,7 +102,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
         initial="hidden"
         animate="show"
         key={activeFilter}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-[var(--color-brand-primary)] gap-[0.5px] border-b border-[var(--color-brand-primary)] border-b-[0.5px]"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-[0.5px] border-b border-[var(--color-brand-primary)] border-b-[0.5px]"
       >
         {paginatedProducts.map((product) => (
           <motion.div variants={itemVariants} key={product.id} className="bg-[#FFFFFF]">

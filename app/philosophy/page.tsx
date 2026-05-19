@@ -5,38 +5,42 @@ export default function Philosophy() {
   const sections = [
     {
       num: "01",
-      title: "On beauty that argues back",
+      title: "On beauty that argues back — and why luxury furniture should never disappear into a room",
       content: [
-        "Most luxury design seeks to eliminate friction. It aims to make life smoother, easier, and less demanding. It wants to accommodate you perfectly. We believe that a life without friction is a life without presence.",
-        "When an object is perfectly comfortable, it disappears. When a room is perfectly harmonious, you stop seeing it. True beauty should not soothe you into a state of unconsciousness. It should wake you up. It should present a minor, ongoing challenge.",
-        "Our pieces are designed to argue with their surroundings. The materials are raw, the weight is excessive, the angles are unforgiving. They demand that you reckon with them every time you enter the room. They refuse to be ignored."
+        "Most luxury furniture design seeks to eliminate friction. It aims to make a space smoother, easier, quieter to accommodate you so perfectly that the object vanishes into the room. This is the prevailing logic of high-end interior design, and we believe it is fundamentally mistaken.",
+        "When a piece of bespoke furniture is perfectly comfortable, it disappears. When a room is perfectly harmonious, you stop seeing it. True luxury should not soothe you into a state of unconsciousness. It should wake you up present a minor, ongoing challenge remind you that you are alive and in the presence of something that required genuine intention to exist.",
+        "Our handcrafted furniture is designed to argue with its surroundings. The materials are raw and unmediated cast iron, rough-hewn stone, ebonised hardwood the weight is deliberate, the angles unforgiving. Each commission is built to demand that you reckon with it every time you enter the room. In an era of mass-produced luxury goods and algorithmically optimised interiors, that refusal to be ignored is, we believe, the only honest definition of enduring value."
       ]
+
+
+      
     },
     {
       num: "02",
-      title: "On the problem with heirlooms",
+      title: "On the problem with heirlooms — and what handmade furniture owes the future",
       content: [
-        "There is an arrogance in the idea of the heirloom. It assumes that the physical burden of your memories will be a gift to the next generation. It is a romantic idea, but it is fundamentally flawed.",
-        "We build things to outlast us—we use cast iron, solid stone, and ebonised wood—but we do not build them so they can be passed down. We build them so they can be entirely complete in the present moment.",
-        "If one of our pieces survives you, it should stand as an independent entity for whoever finds it next. It should not need your ghost to give it meaning. It is not a vessel for your legacy; it is an object with its own."
+        "There is a quiet arrogance embedded in the idea of the heirloom. It assumes that the physical burden of your memories will constitute a gift to the next generation that the objects you commissioned, chose, and lived with will carry their meaning forward intact. It is a romantic idea, and it is one we find fundamentally dishonest.",
+        "We build to outlast. Our materials solid cast iron, natural stone, centuries-hardened ebonised wood are chosen precisely because they do not age in the conventional sense. They do not soften, fade, or conform. They endure on their own terms. But we do not build them to be passed down as vessels of sentiment. We build them to be entirely complete in the present moment for the person who commissioned them, in the space for which they were made",
+        "If a Contradiction piece survives its original owner and most will it should stand as an independent object for whoever encounters it next. It should need no context, no story, no ghost in the room to give it weight. The finest custom-made furniture does not derive its value from provenance. It derives it from the integrity of the object itself. That is the only permanence worth building toward."
       ]
     },
     {
       num: "03",
-      title: "On who this is for (and who it isn't)",
+      title: "On who commissions Contradiction — and who does not",
       content: [
-        "Contradiction is not for the collector who wants to signal taste. It is not for the interior designer trying to complete a mood board. It is certainly not for the hotel lobby looking for a statement piece.",
-        "It is for the individual who has stopped needing to justify what they own. The person who understands that true luxury is not about ease, but about intent. It is for those who are willing to live with a difficult presence in their home because they recognize that the difficulty is the point.",
-        "If you are looking for something that will blend in, or something that will immediately impress a casual visitor, you are in the wrong place."
+        "Contradiction is not for the collector who wants to signal taste to arriving guests. It is not for the interior designer completing a mood board for a client who has approved a budget. It is not for the luxury hotel lobby in search of a statement piece that photographs well and offends no one.",
+        "It is for the individual who has arrived at a point of complete clarity about what they want to live with. The person who understands that genuine luxury furniture is not defined by ease of acquisition, recognisable branding, or the comfort of social validation — but by intent, by the quality of the making, and by the honesty of the material. It is for those who are willing to inhabit a difficult presence in their home because they recognise, without needing to be told, that the difficulty is precisely the point.",
+        "Our bespoke furniture commissions are accepted by private inquiry. There is no off-the-shelf configuration, no showroom pressure, and no standard specification — only a direct conversation about what you need, the space it will inhabit, and the standard to which it will be built. We work with residential clients, private collectors, and interior architects across Karachi, Dubai, London, and internationally, on projects where the ambition of the brief matches the quality of the outcome.",
+        ""
       ]
     },
     {
       num: "04",
-      title: "On why we will never scale",
+      title: "On craft without compromise — and why we will never trade process for volume",
       content: [
-        "Scale is the enemy of intent. The moment you begin to optimize for volume, you begin to compromise on the process. You start using machines to do the work of hands. You start substituting time for efficiency.",
-        "We accept a maximum of seven commissions per year. This is not an artificial scarcity tactic; it is the physical limit of our atelier. Every piece requires months of labor, failure, and refinement.",
-        "We will never expand. We will never introduce a 'diffusion line'. When the current artisans can no longer do the work, Contradiction will simply cease to exist. That is the only honest way to end an argument."
+        "There is a version of luxury furniture making that looks like ours from a distance. It uses the same words — handmade, bespoke, artisan — and charges accordingly. But somewhere in its history, it made a decision: to let efficiency substitute for time, to let machines complete what hands began, to let the language of craft outlast the practice of it. The result is product. It is not what we do.",
+        "Every Contradiction piece is built through a process that cannot be shortened without being broken. The material selection, the structural decisions, the finishing — each stage demands the full attention of the people doing it, for as long as it takes to do it correctly. We do not optimise this process. We do not introduce steps that reduce labour at the cost of resolution. We do not allow the ambition of the commission to exceed the integrity of its execution.",
+        "This means we work at the pace that the work demands. It means that every client who commissions a piece receives something that was made with the same standard of attention regardless of scale, timeline pressure, or the number of other projects underway. Craft at this level is not a constraint on how much we can do — it is the definition of what we do. And it is, we believe, the only position in luxury furniture making that is worth occupying."
       ]
     }
   ];
@@ -93,9 +97,14 @@ export default function Philosophy() {
             fill
             className="object-cover opacity-30"
           />
-          <blockquote className="relative z-10 font-serif italic text-3xl md:text-[56px] text-[#FFFFFF] text-center max-w-4xl leading-relaxed">
-            {`"A room is not a container for comfort. It is a stage for the deliberate."`}
-          </blockquote>
+          <div className="relative z-10 max-w-4xl text-center">
+            <blockquote className="font-serif italic text-3xl md:text-[56px] text-[#FFFFFF] leading-relaxed mb-8">
+              {`"A room is not a container for comfort. It is a stage for the deliberate. Every object within it is either a decision or an accident."`}
+            </blockquote>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#FFFFFF] opacity-80">
+              — The Contradiction Atelier
+            </p>
+          </div>
         </div>
 
         {/* Section 03 */}
