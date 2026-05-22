@@ -24,7 +24,7 @@ export default function Hero() {
            Private Collection — Est. 2014
         </div>
         
-        <h1 className="text-5xl md:text-[72px] font-serif leading-[1.1] text-white mb-8 mt-12 md:mt-0 font-extrabold">
+        <h1 className="text-5xl md:text-[72px] font-grand_hotel leading-[1.1] text-white mb-8 mt-12 md:mt-0 font-extrabold">
           <span className="block animate-[fadeIn_1s_ease-out_0.2s_both]"> Objects Forged</span>
           <span className="block animate-[fadeIn_1s_ease-out_0.4s_both]">
            To Defy  <i className="text-[var(--color-brand-primary)]">Possession</i>

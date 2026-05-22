@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
@@ -34,6 +34,41 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
   const [activeFilter, setActiveFilter] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  // Drag to scroll logic
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll-fast
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const scrollByAmount = (amount: number) => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: amount, behavior: "smooth" });
+    }
+  };
+
   // Filter based on category
   const filteredProducts = activeFilter === "All" 
     ? products 
@@ -46,66 +81,116 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 2) {
+        pages.push(1, 2, 3, '...', totalPages);
+      } else if (currentPage >= totalPages - 1) {
+        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+      }
+    }
+    return pages;
+  };
+
 
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
       {/* Top Editorial Intro */}
       <div className="relative py-28 md:py-40 flex flex-col items-center justify-center border-b border-(--color-brand-primary) border-b-[0.5px] overflow-hidden">
-        {/* Abstract Architectural SVG Background */}
-        {/* <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none text-(--color-text-primary)">
-          <svg viewBox="0 0 1000 500" className="w-full h-full object-cover min-w-[1000px] max-w-none" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="1">
-            <circle cx="500" cy="250" r="400" />
-            <circle cx="500" cy="250" r="280" />
-            <circle cx="500" cy="250" r="160" />
-            <line x1="0" y1="250" x2="1000" y2="250" />
-            <line x1="500" y1="0" x2="500" y2="500" />
-            <line x1="217" y1="50" x2="783" y2="450" />
-            <line x1="217" y1="450" x2="783" y2="50" />
-          </svg>
-        </div> */}
-
-
-        <h1 className="relative z-10 text-3xl md:text-5xl font-serif italic text-(--color-text-primary) text-center leading-relaxed px-6">
+        {/* Sketch Background */}
+        <div className="absolute -top-100 inset-0 pointer-events-none opacity-[0.18] md:opacity-[0.35] mix-blend-multiply z-0">
+          <Image
+            src="/sketch-21.jpeg"
+            alt="Catalogue background sketch"
+            fill
+            className="object-cover "
+            priority
+          />
+        </div>
+        {/* <h1 className="relative z-10 text-3xl bg-[#9500024d] md:text-5xl font-serif italic text-(--color-text-primary) text-center font-bold leading-relaxed px-6 underline underline-offset-[5px] decoration-[0.5px] decoration-white ">
           Form without compromise.<br/>
           Material without apology.<br/>
           The Collection.
+        </h1> */}
+
+
+        <h1 className="relative z-10 text-3xl bg-[#aaa7a734] md:text-5xl font-serif italic text-(--color-text-primary) text-center font-extrabold leading-relaxed px-6 underline underline-offset-[9px] decoration-[2px] decoration-white/90 ">
+          Form without compromise.<br/>
+          Material without apology.<br/>
+         The <span className="text-[#950002]  text-6xl font-grand_hotel">Collection.</span>
         </h1>
+
       </div>
 
       {/* Filter Bar */}
       {/* border-b border-(--color-brand-primary) border-b-[0.5px] */}
-      <div className="py-6 md:py-8 border-b border-(--color-brand-primary) border-b-[0.5px]  w-full">
-        <div className="flex justify-start md:justify-center overflow-x-auto px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {dynamicCategories.map((cat, i) => (
-            <div key={cat} className="flex items-center gap-6 md:gap-12 shrink-0">
-              <button
-                onClick={() => {
-                  setActiveFilter(cat);
-                  setCurrentPage(1);
-                }}
-                className={`relative pb-1 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary) hover:text-(--color-text-primary)'}`}
-              >
-                {cat}
-                {activeFilter === cat && (
-                  <span className="absolute bottom-0 left-0 w-full h-[1px] md:h-[0.5px] bg-(--color-brand-primary)"></span>
-                )}
-              </button>
-              {i < dynamicCategories.length - 1 && <span className="text-black font-bold text-[10px]">·</span>}
-            </div>
-          ))}
+      <div className="py-6 md:py-8 w-full px-4 md:px-8">
+        <div className=" mx-auto flex items-center gap-2 md:gap-4 group">
+          {/* Left Arrow */}
+          <button 
+            onClick={() => scrollByAmount(-200)}
+            className="flex shrink-0 items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-white/80 backdrop-blur-sm border border-[var(--color-border-light)] shadow-sm text-gray-500 hover:text-black transition-colors"
+            aria-label="Scroll left"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+
+          <div 
+            ref={scrollContainerRef}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            className="flex-1 flex overflow-x-auto px-2 md:px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing select-none"
+          >
+            {dynamicCategories.map((cat, i) => (
+              <div key={cat} className="flex items-center gap-6 md:gap-12 shrink-0">
+                <button
+                  onClick={() => {
+                    setActiveFilter(cat);
+                    setCurrentPage(1);
+                  }}
+                  className={`relative pb-1 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary) hover:text-(--color-text-primary)'}`}
+                >
+                  {cat}
+                  {activeFilter === cat && (
+                    <span className="absolute bottom-0 left-0 w-full h-[1px] md:h-[0.5px] bg-(--color-brand-primary)"></span>
+                  )}
+                </button>
+                {i < dynamicCategories.length - 1 && <span className="text-black font-bold text-[10px]">·</span>}
+              </div>
+            ))}
+          </div>
+
+          {/* Right Arrow */}
+          <button 
+            onClick={() => scrollByAmount(200)}
+            className="flex shrink-0 items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-white/80 backdrop-blur-sm border border-[var(--color-border-light)] shadow-sm text-gray-500 hover:text-black transition-colors"
+            aria-label="Scroll right"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
         </div>
       </div>
 
-      {/* Grid */}
+     {/* Grid */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="show"
         key={activeFilter}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-[0.5px] border-b border-[var(--color-brand-primary)] border-b-[0.5px]"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-white gap-[4px] px-[4px]"
+        // border-b border-[var(--color-brand-primary)] border-b-[0.5px]
       >
         {paginatedProducts.map((product) => (
-          <motion.div variants={itemVariants} key={product.id} className="bg-[#FFFFFF]">
+          <motion.div variants={itemVariants} key={product.id} className="bg-[#FFFFFF] border border-[var(--color-brand-primary)] border-[0.5px]">
             <Link 
               href={`/catalogue/${product.slug}`}
               className="block group h-full flex flex-col"
@@ -116,9 +201,13 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
                   alt={product.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover grayscale-0 group-hover:grayscale transition-all duration-700"
+                  className="object-cover bg-full "
                 />
-                <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+             
+                
+                 <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
+                {/* Hover red slide in at 8% */}
+                <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
               </div>
               <div className="p-6 flex flex-col justify-between flex-grow min-h-[140px]">
                 <div className="flex justify-between items-start mb-4">
@@ -156,18 +245,24 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
           >
             ← Prev
           </button>
-          <div className="flex gap-4">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setCurrentPage(i + 1);
-                  window.scrollTo({ top: 300, behavior: 'smooth' });
-                }}
-                className={`text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${currentPage === i + 1 ? 'text-[var(--color-text-primary)] font-bold' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)]'}`}
-              >
-                {i + 1}
-              </button>
+          <div className="flex gap-4 items-center">
+            {getPageNumbers().map((page, i) => (
+              page === '...' ? (
+                <span key={`ellipsis-${i}`} className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
+                  ...
+                </span>
+              ) : (
+                <button
+                  key={i}
+                  onClick={() => {
+                    setCurrentPage(page as number);
+                    window.scrollTo({ top: 300, behavior: 'smooth' });
+                  }}
+                  className={`text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${currentPage === page ? 'text-[var(--color-text-primary)] font-bold' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)]'}`}
+                >
+                  {page}
+                </button>
+              )
             ))}
           </div>
           <button 

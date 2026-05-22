@@ -1,11 +1,22 @@
 import Link from 'next/link'
 import React from 'react'
+import Image from 'next/image'
 
 const EditorialIntro = () => {
   return (
-    <section className="w-full py-[120px] px-6 md:px-16 border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24">
-          <div className="w-full md:w-1/2">
+    <section className="relative w-full py-[120px] px-6 md:px-16 border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF] overflow-hidden">
+        <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24">
+          <div className="w-full md:w-1/2 relative">
+            {/* Sketch Background on left heading */}
+            <div className="hidden md:block absolute inset-0 md:-top-10 md:-left-20 md:-right-10 md:-bottom-20 pointer-events-none opacity-[0.08] md:opacity-[0.15] mix-blend-multiply z-[-1]">
+              <Image
+                src="/sketch-17.jpeg"
+                alt="Architectural sketch background"
+                fill
+                className="object-contain md:object-cover object-center md:object-center"
+                priority
+              />
+            </div>
             <h2 className="font-serif italic text-3xl md:text-[40px] leading-tight text-[var(--color-text-primary)]">
               {"We Do Not Make Furniture. We Make Statements That Refuse to Leave the Room."}
             </h2>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cormorant_Garamond, Inter, Grand_Hotel } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -18,6 +18,12 @@ const inter = Inter({
   weight: ["300", "400", "500"],
 });
 
+const grand_hotel = Grand_Hotel({
+  variable: "--font-grand_hotel",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Contradiction | Ultra-Luxury Furniture",
   description: "Each piece is made once. Not for sale. For consideration. Commission by invitation.",
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${inter.variable} ${grand_hotel.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#FFFFFF] text-[#0D0D0D]">
         <ApolloProviderWrapper>
