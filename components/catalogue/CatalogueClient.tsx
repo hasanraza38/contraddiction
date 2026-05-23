@@ -105,12 +105,12 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
       {/* Top Editorial Intro */}
       <div className="relative py-28 md:py-40 flex flex-col items-center justify-center border-b border-(--color-brand-primary) border-b-[0.5px] overflow-hidden">
         {/* Sketch Background */}
-        <div className="absolute -top-100 inset-0 pointer-events-none opacity-[0.18] md:opacity-[0.35] mix-blend-multiply z-0">
+        <div className="absolute inset-0 md:-top-[20rem] pointer-events-none opacity-[0.48] md:opacity-[0.35] mix-blend-multiply z-0">
           <Image
             src="/sketch-21.jpeg"
             alt="Catalogue background sketch"
             fill
-            className="object-cover "
+            className="object-cover object-center"
             priority
           />
         </div>
@@ -124,7 +124,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
         <h1 className="relative z-10 text-3xl bg-[#aaa7a734] md:text-5xl font-serif italic text-(--color-text-primary) text-center font-extrabold leading-relaxed px-6 underline underline-offset-[9px] decoration-[2px] decoration-white/90 ">
           Form without compromise.<br/>
           Material without apology.<br/>
-         The <span className="text-[#950002]  text-6xl font-grand_hotel">Collection.</span>
+         The <span className="text-[#950002] tracking-wider text-5xl md:text-7xl font-lavishly_yours">Collection.</span>
         </h1>
 
       </div>

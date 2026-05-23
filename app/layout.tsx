@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, Grand_Hotel } from "next/font/google";
+import { Cormorant_Garamond, Poppins, Lavishly_Yours } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -12,14 +12,14 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["300", "400", "500"],
 });
 
-const grand_hotel = Grand_Hotel({
-  variable: "--font-grand_hotel",
+const lavishly_yours = Lavishly_Yours({
+  variable: "--font-lavishly_yours",
   subsets: ["latin"],
   weight: "400",
 });
@@ -37,12 +37,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} ${grand_hotel.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${poppins.variable} ${lavishly_yours.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#FFFFFF] text-[#0D0D0D]">
         <ApolloProviderWrapper>
         <Navbar />
-        <main className="flex-grow pt-[53px] w-full">
+        <main className="flex-grow pt-[40px] w-full">
           {children}
         </main>
         <Footer />

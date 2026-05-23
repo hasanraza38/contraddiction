@@ -7,7 +7,7 @@ export default function Hero() {
       {/* Background Image full width */}
       <div className="absolute inset-0 z-0">
         <Image 
-          src="https://images.unsplash.com/photo-1599696848652-f0ff23bc911f?q=80&w=2000&auto=format&fit=crop"
+          src="https://darkgreen-deer-608928.hostingersite.com/wp-content/uploads/2026/05/bed1-3.jpeg"
           alt="Contradiction moody interior"
           fill
           sizes="100vw"
