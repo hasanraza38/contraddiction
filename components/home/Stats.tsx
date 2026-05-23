@@ -4,7 +4,7 @@ const Stats = () => {
   return (
       <section className="w-full grid grid-cols-2 md:grid-cols-3 border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
         {[
-          { number: "0", label: "CNC machines. Every piece is handcrafted by artisans." },
+          { number: "10+", label: "Years of uncompromising mastery in bespoke design." },
           { number: "8", label: "Master craftspeople dedicated to uncompromised creation." },
           { number: "Open", label: "Commissions are currently open. Begin your conversation." }
 
