@@ -11,19 +11,20 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#FFFFFF]">
+    <footer className="w-full bg-[#FAF9F6]">
       {/* Main Footer Area */}
       <div className="grid grid-cols-1 md:grid-cols-3 border-t border-[var(--color-border-light)] border-t-[0.5px]">
         {/* Left Column */}
         <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[var(--color-border-light)] border-r-[0.5px] flex flex-col justify-between">
           <div>
-            <Image src="/logo-contradictions.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain mb-4" />
+            {/* <Image src="/logo-contradictions.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain mb-4" /> */}
+            <h1 className="font-grand_hotel uppercase font-extrabold text-4xl md:text-3xl font-extrabold tracking-tight text-[var(--color-brand-primary)] mb-4">Contradictions.</h1>
             <p className="font-serif italic text-xl text-[var(--color-text-secondary)]">
               Objects that resist explanation
             </p>
           </div>
           <div className="mt-16 text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
-            Karachi · Dubai · London
+            · Karachi 
           </div>
         </div>
 

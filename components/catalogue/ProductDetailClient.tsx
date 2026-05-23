@@ -12,21 +12,25 @@ interface ProductDetailClientProps {
 }
 
 export default function ProductDetailClient({ product, relatedProducts }: ProductDetailClientProps) {
-  const allImages = [product.image, ...product.photoGallery.map(m => m.url)];
+  const allImages = product.photoGallery.map(m => m.url);
+  // Fallback to the featured image if there are no images in the gallery
+  if (allImages.length === 0) allImages.push(product.image);
+  
   const [activeImage, setActiveImage] = useState<string>(allImages[0] || "");
 
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
       <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-53px)] relative">
         {/* Left Panel - Sticky */}
-        <div className="w-full lg:w-[60%] h-[60vh] lg:h-[calc(100vh-53px)] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px]">
-          <div className="flex-grow relative bg-[#FAF7F7]">
+        <div className="w-full lg:w-[60%] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px] self-start">
+          <div className="relative bg-[#FAF7F7] w-full flex items-center justify-center overflow-hidden">
             {activeImage && (
               <Image 
                 src={activeImage} 
-                fill 
+                width={1600}
+                height={1600}
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover transition-opacity duration-500" 
+                className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8 transition-opacity duration-500" 
                 alt={product.name} 
                 priority
               />

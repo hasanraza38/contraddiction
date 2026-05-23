@@ -5,7 +5,8 @@
   --color-foreground: #0D0D0D;
   
   --font-serif: var(--font-cormorant);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-poppins);
+  --font-lavishly_yours: var(--font-lavishly_yours);
   
   --color-brand-primary: #8B0000;
   --color-brand-secondary: #C41E3A;

@@ -18,12 +18,13 @@ export default async function CataloguePreview() {
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Current Collection</span>
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">{products.length} pieces</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-[4px] px-[4px] md:grid-cols-3">
           {products.map((product: any, index: number) => (
             <Link 
               key={product.id} 
               href={`/catalogue/${product.slug}`}
-              className={`relative group border-b border-[var(--color-brand-primary)] border-b-[0.5px] md:border-b-0 ${index !== products.length - 1 ? 'md:border-r border-r-[0.5px]' : ''}`}
+              className={`relative group  border border-[var(--color-brand-primary)] border-[0.5px]`}
+              // {index !== products.length - 1 ? 'md:border-r border-r-[0.5px]' : ''
             >
                <div className="w-full aspect-square relative overflow-hidden bg-[#FAF7F7]">
                 <Image 

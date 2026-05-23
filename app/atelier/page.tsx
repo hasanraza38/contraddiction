@@ -2,13 +2,12 @@ import Image from "next/image";
 
 export default function Atelier() {
   const timeline = [
-    { stage: "Commission confirmed", duration: "1 week", desc: "The agreement is finalized and the argument is set." },
-    { stage: "Material sourcing", duration: "4–12 weeks", desc: "We seek specific veins of stone, specific ages of wood." },
-    { stage: "Prototype (refused)", duration: "6–8 weeks", desc: "The first attempt is built entirely to find its flaws, then discarded." },
-    { stage: "Final prototype", duration: "4 weeks", desc: "A scale-accurate study of tension and weight." },
-    { stage: "Making begins", duration: "12–24 weeks", desc: "The physical labor. No CNC machines. Hand pouring, hand joining." },
-    { stage: "Installation", duration: "1 week", desc: "The piece is placed in its final environment." },
-    { stage: "Handover", duration: "1 day", desc: "We leave the piece. It belongs to the room now." }
+    { stage: "The Showroom Experience", duration: "Initial Visit", desc: "Experience the physical presence, the weight, and the unyielding materials of our collection in person." },
+    { stage: "Private Consultation", duration: "1–2 Weeks", desc: "A dialogue about your space. We don't take orders; we begin a conversation about architecture and intent." },
+    { stage: "Material Sourcing", duration: "3–6 Weeks", desc: "We seek out specific veins of stone, exact ages of timber, and uncompromised raw materials." },
+    { stage: "The Atelier", duration: "12–20 Weeks", desc: "The physical labor begins in Karachi. No CNC machines. Every piece is carved, joined, and finished by hand." },
+    { stage: "White-Glove Transit", duration: "1–3 Weeks", desc: "Secure, climate-controlled transportation from our workshop directly to your residence." },
+    { stage: "To The Home", duration: "Installation", desc: "The piece is placed in its final environment. We leave the room, and the object begins its lifetime." }
   ];
 
   const craftspeople = [
@@ -34,13 +33,13 @@ export default function Atelier() {
         {/* Left: Image grid */}
         <div className="w-full md:w-[50%] grid grid-cols-2 border-b md:border-b-0 md:border-r border-[var(--color-border-light)] md:border-r-[0.5px]">
           {[
-            "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=800&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?q=80&w=800&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1544457070-4cd773b4d71e?q=80&w=800&auto=format&fit=crop"
+            "/atelier1.jpg",
+            "/atelier2.jpg",
+            "/atelier3.jpg",
+            "/atelier4.jpg"
           ].map((img, i) => (
             <div key={i} className={`w-full aspect-[4/5] md:aspect-square relative border-[var(--color-border-light)] ${i % 2 === 0 ? 'border-r border-r-[0.5px]' : ''} ${i < 2 ? 'border-b border-b-[0.5px]' : ''}`}>
-              <Image src={img} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover grayscale" alt="Atelier detail" />
+              <Image src={img} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" alt="Atelier detail" />
             </div>
           ))}
         </div>
@@ -92,26 +91,7 @@ export default function Atelier() {
       </section>
 
       {/* Craftspeople Section */}
-      <section className="w-full py-32 md:py-48 px-6 border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="font-serif text-[40px] md:text-[56px] text-[var(--color-text-primary)] mb-24 text-center">Those who make.</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
-            {craftspeople.map((person, i) => (
-              <div key={i} className="flex flex-col items-center text-center">
-                {/* The only circles on the site */}
-                <div className="w-32 h-32 md:w-48 md:h-48 relative rounded-full overflow-hidden mb-8 md:mb-12 border border-[var(--color-border-light)] border-[0.5px] transition-transform duration-500 hover:scale-105">
-                  <Image src={person.img} fill sizes="(max-width: 768px) 128px, 192px" className="object-cover grayscale hover:grayscale-0 transition-all duration-700" alt={person.name} />
-                </div>
-                <h3 className="font-serif text-[24px] md:text-[28px] text-[var(--color-text-primary)] mb-2">{person.name}</h3>
-                <span className="text-[10px] md:text-[12px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-6">{person.title}</span>
-                <p className="font-serif italic text-[16px] md:text-[18px] text-[var(--color-text-secondary)] max-w-[250px] md:max-w-[300px]">
-                  {`"${person.quote}"`}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
       {/* End section */}
       <section className="w-full bg-[var(--color-brand-primary)] text-white py-48 md:py-64 px-6 flex justify-center text-center">

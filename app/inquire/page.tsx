@@ -1,5 +1,6 @@
 "use client";
 
+import UnderlineText from "@/components/ui/UnderlineText";
 import { FormEvent, useState } from "react";
 
 export default function Inquire() {
@@ -17,11 +18,11 @@ export default function Inquire() {
         {/* Editorial Header */}
         <h1 className="font-serif text-[48px] md:text-[64px] text-[var(--color-text-primary)] mb-8 leading-[1.1]">
           {`We don't take orders.`}<br />
-          We begin conversations.
+         We begin <UnderlineText text="conversations." variant="color"/>
         </h1>
         
         <p className="text-[16px] text-[var(--color-text-primary)] leading-[1.9] mb-16 max-w-lg">
-          Contradiction accepts a limited number of commissions each year. If you are considering one, tell us about the space, not the piece. We will take it from there.
+         <UnderlineText text="Contradiction" variant="underline"/> accepts a limited number of commissions each year. If you are considering one, tell us about the space, not the piece. We will take it from there.
         </p>
 
         {submitted ? (
@@ -104,7 +105,7 @@ export default function Inquire() {
               >
                 Send a letter →
               </button>
-              <p className="font-serif italic text-[14px] text-[var(--color-text-secondary)] text-center">
+              <p className="font-serif italic text-[24px] text-[var(--color-text-secondary)] text-center">
                 We respond to every letter within 14 days. We do not follow up.
               </p>
             </div>

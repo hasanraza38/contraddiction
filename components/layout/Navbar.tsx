@@ -41,7 +41,7 @@ export default function Navbar() {
         <div className="pl-[24px] pr-6 md:pl-[80px] py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center">
             {/* <Image src="/contra-logo-v2.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority /> */}
-            <Image src="/logo-contradictions.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority loading="eager" />
+            <Image src="/logo-contradictionsv2.png" alt="Contradiction Logo" width={1023} height={168} className="w-[150px] md:w-[180px] h-auto object-contain" priority loading="eager" />
           </Link>
 
           {/* Desktop Nav */}
@@ -60,7 +60,7 @@ export default function Navbar() {
                       <span className="absolute -bottom-1 left-0 w-full h-[0.5px] bg-[var(--color-brand-primary)]"></span>
                     )}
                   </Link>
-                  {index < links.length - 1 && <span className="text-[var(--color-border-light)]">·</span>}
+                  {index < links.length - 1 && <span className="text-black">·</span>}
                 </div>
               );
             })}

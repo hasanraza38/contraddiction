@@ -23,7 +23,7 @@ export default async function SingleFeaturedProduct() {
                alt={product.name}
                fill
                sizes="(max-width: 768px) 100vw, 60vw"
-               className="object-cover grayscale"
+               className="object-cover"
                priority
              />
            </div>

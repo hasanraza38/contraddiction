@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import UnderlineText from "@/components/ui/UnderlineText";
 
 export default function Philosophy() {
   const sections = [
@@ -50,10 +51,10 @@ export default function Philosophy() {
       {/* Top Header */}
       <div className="pt-32 pb-24 px-6 flex flex-col items-center text-center">
         <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-8">
-          The Contradiction Position
+          Our Philosophy
         </span>
-        <h1 className="font-serif text-[64px] md:text-[80px] text-[var(--color-text-primary)] leading-[1.1] max-w-4xl">
-          Why we make what nobody needs.
+        <h1 className="font-serif text-[56px] md:text-[72px] text-[var(--color-text-primary)] leading-[1.1] max-w-4xl">
+          <UnderlineText text="Craftsmanship" /> that refuses to compromise.
         </h1>
       </div>
 
