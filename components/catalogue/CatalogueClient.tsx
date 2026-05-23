@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { NormalizedCatalogue } from "@/lib/graphql-types";
+import { useSearchParams, useRouter } from "next/navigation";
 
 // Define container variants
 const containerVariants: Variants = {
@@ -28,11 +29,55 @@ interface CatalogueClientProps {
 }
 
 export default function CatalogueClient({ products, fetchedCategories = [] }: CatalogueClientProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   // Use fetched categories if provided, otherwise derive from products
   const dynamicCategories = ["All", ...Array.from(new Set(fetchedCategories.length > 0 ? fetchedCategories : products.map(p => p.category).filter(Boolean)))];
 
-  const [activeFilter, setActiveFilter] = useState<string>("All");
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const categoryParam = searchParams.get("category");
+  const initialCategory = categoryParam || "All";
+  const pageParam = searchParams.get("page");
+  const initialPage = pageParam ? parseInt(pageParam, 10) : 1;
+
+  const [activeFilter, setActiveFilter] = useState<string>(initialCategory);
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
+
+  useEffect(() => {
+    const currentCategory = searchParams.get("category") || "All";
+    setActiveFilter(currentCategory);
+    
+    const currentPageParam = searchParams.get("page");
+    setCurrentPage(currentPageParam ? parseInt(currentPageParam, 10) : 1);
+  }, [searchParams]);
+
+  const handleFilterClick = (cat: string) => {
+    setActiveFilter(cat);
+    setCurrentPage(1);
+    
+    const params = new URLSearchParams(searchParams.toString());
+    if (cat === "All") {
+      params.delete("category");
+    } else {
+      params.set("category", cat);
+    }
+    params.delete("page");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    
+    const params = new URLSearchParams(searchParams.toString());
+    if (page === 1) {
+      params.delete("page");
+    } else {
+      params.set("page", page.toString());
+    }
+    router.replace(`?${params.toString()}`, { scroll: false });
+    
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  };
 
   // Drag to scroll logic
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -153,10 +198,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
             {dynamicCategories.map((cat, i) => (
               <div key={cat} className="flex items-center gap-6 md:gap-12 shrink-0">
                 <button
-                  onClick={() => {
-                    setActiveFilter(cat);
-                    setCurrentPage(1);
-                  }}
+                  onClick={() => handleFilterClick(cat)}
                   className={`relative pb-1 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary) hover:text-(--color-text-primary)'}`}
                 >
                   {cat}
@@ -236,10 +278,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
       {totalPages > 1 && (
         <div className="w-full flex justify-center items-center py-12 gap-8 bg-[#FFFFFF] border-b border-[var(--color-brand-primary)] border-b-[0.5px]">
           <button 
-            onClick={() => {
-              setCurrentPage(prev => Math.max(prev - 1, 1));
-              window.scrollTo({ top: 300, behavior: 'smooth' });
-            }}
+            onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
             className="text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
           >
@@ -254,10 +293,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
               ) : (
                 <button
                   key={i}
-                  onClick={() => {
-                    setCurrentPage(page as number);
-                    window.scrollTo({ top: 300, behavior: 'smooth' });
-                  }}
+                  onClick={() => handlePageChange(page as number)}
                   className={`text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${currentPage === page ? 'text-[var(--color-text-primary)] font-bold' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)]'}`}
                 >
                   {page}
@@ -266,10 +302,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
             ))}
           </div>
           <button 
-            onClick={() => {
-              setCurrentPage(prev => Math.min(prev + 1, totalPages));
-              window.scrollTo({ top: 300, behavior: 'smooth' });
-            }}
+            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
             disabled={currentPage === totalPages}
             className="text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
           >
