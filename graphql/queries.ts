@@ -68,8 +68,8 @@ export const GET_CATALOGUE_BY_SLUG = gql`
 
 // ── 3. GET ONLY 3 (latest/featured) ──────────────────────────────────────────
 export const GET_CATALOGUE_ITEMS_LIMITED = gql`
-  query GetCataloguesLimited($first: Int = 3) {
-    catalogues(first: $first) {
+  query GetCataloguesLimited($first: Int = 30) {
+    catalogues(first: $first, where: { orderby: { field: TITLE, order: ASC } }) {
       nodes {
         id
         title
@@ -93,6 +93,46 @@ export const GET_CATALOGUE_ITEMS_LIMITED = gql`
           treatment
           photoGallery {
             fullFileUrl
+          }
+        }
+      }
+    }
+  }
+`;
+
+
+export const GET_FEATURED_COLLECTION = gql`
+  query GetFeaturedCollection {
+    catalogueCategories {
+      nodes {
+        name
+        slug
+        catalogues(first: 1) {
+          nodes {
+            id
+            title
+            slug
+            featuredImage {
+              node {
+                sourceUrl
+              }
+            }
+            catalogueCategories {
+              nodes {
+                name
+                slug
+              }
+            }
+            catalogueDetails {
+              material
+              argument
+              craftNote
+              origin
+              treatment
+              photoGallery {
+                fullFileUrl
+              }
+            }
           }
         }
       }

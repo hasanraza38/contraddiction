@@ -4,7 +4,6 @@ import EditorialIntro from "@/components/home/EditorialIntro";
 import Hero from "@/components/home/Hero";
 import Marquee from "@/components/home/Marquee";
 import CataloguePreview from "@/components/home/CataloguePreview";
-import SingleFeaturedProduct from "@/components/home/SingleFeaturedProduct";
 import Stats from "@/components/home/Stats";
 import MaterialsAndCraft from "@/components/home/MaterialsAndCraft";
 import JournalPreview from "@/components/home/JournalPreview";
@@ -22,27 +21,25 @@ export default function Home() {
       <Marquee />
 
       {/* Section 3 — Editorial introduction */}
-     <EditorialIntro />
+      <EditorialIntro />
 
-      {/* Section 4 — Catalogue preview */}
+      {/* Section 4 & 5 — Catalogue preview and single product */}
       <CataloguePreview />
 
-      {/* Section 5 — Single featured product */}
-      <SingleFeaturedProduct />
-
       {/* Section 6 — The Numbers */}
-      <Stats/>
+      <Stats />
 
       {/* Section 7 — Materials & Craft */}
-      <MaterialsAndCraft/>
+      <MaterialsAndCraft />
 
       {/* Section 8 — Journal preview */}
       <JournalPreview />
 
       {/* Section 9 — Atelier teaser */}
-      <AtelierTeaser/>
-
+      <AtelierTeaser />
       
+
+
     </div>
   );
 }
