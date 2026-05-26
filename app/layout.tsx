@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ApolloProviderWrapper } from "@/lib/apollo-provider";
+import Chatbot from "@/components/layout/Chatbot";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -45,6 +46,7 @@ export default function RootLayout({
         <main className="flex-grow pt-[40px] w-full">
           {children}
         </main>
+        <Chatbot/>
         <Footer />
         </ApolloProviderWrapper>
       </body>
