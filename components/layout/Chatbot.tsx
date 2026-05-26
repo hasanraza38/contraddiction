@@ -32,6 +32,13 @@ const Chatbot = () => {
 
         // Add user's message
         const newMessage = { role: 'user', content };
+        
+        // Prepare history for API (mapping any local roles if necessary, though we use 'user' and 'assistant')
+        const historyForApi = messages.map(msg => ({
+            role: msg.role === 'user' ? 'user' : 'assistant',
+            content: msg.content
+        }));
+
         setMessages(prev => [...prev, newMessage]);
 
         // Clear input only if it's from the input field
@@ -40,24 +47,34 @@ const Chatbot = () => {
         setIsLoading(true);
 
         try {
-            // const res = await aiApi.post('/chat', {
-            //     message: content,
-            // });
-console.log("hello");
+            const res = await fetch('http://127.0.0.1:8000/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: content,
+                    history: historyForApi
+                })
+            });
 
-            // const data = res.data;
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await res.json();
 
             // Add bot's reply
-            // setMessages(prev => [...prev, {
-            //     role: 'bot',
-            //     content: data.reply
-            // }]);
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: data.reply
+            }]);
         } catch (err) {
             console.error('Chat error:', err);
-            // setMessages(prev => [...prev, {
-            //     role: 'bot',
-            //     content: 'Sorry, I encountered an error. Please try again later.'
-            // }]);
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                content: 'Sorry, I encountered an error. Please try again later.'
+            }]);
         } finally {
             setIsLoading(false);
         }

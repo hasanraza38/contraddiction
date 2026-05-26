@@ -193,13 +193,13 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
-            className="flex-1 flex overflow-x-auto px-2 md:px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing select-none"
+            className="flex-1 flex overflow-x-auto px-2 md:px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
           >
             {dynamicCategories.map((cat, i) => (
-              <div key={cat} className="flex items-center gap-6 md:gap-12 shrink-0">
+              <div key={cat} className="flex items-center gap-6 md:gap-12  shrink-0">
                 <button
                   onClick={() => handleFilterClick(cat)}
-                  className={`relative pb-1 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary) hover:text-(--color-text-primary)'}`}
+                  className={`relative pb-1 cursor-pointer whitespace-nowrap text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${activeFilter === cat ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary) hover:text-(--color-text-primary)'}`}
                 >
                   {cat}
                   {activeFilter === cat && (
