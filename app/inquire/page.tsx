@@ -104,10 +104,10 @@ export default function Inquire() {
                 type="submit"
                 className="w-full bg-[var(--color-brand-primary)] text-white text-[10px] uppercase tracking-[0.3em] py-6 hover:bg-[var(--color-brand-hover)] transition-colors duration-500"
               >
-                Send a letter →
+                Send inquiry →
               </button>
               <p className="font-serif italic text-[24px] text-[var(--color-text-secondary)] text-center">
-                We respond to every letter within 2 days.
+                We respond to every inquiry within 2 days.
               </p>
             </div>
           </form>
