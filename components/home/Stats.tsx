@@ -4,9 +4,9 @@ const Stats = () => {
   return (
       <section className="w-full grid grid-cols-2 md:grid-cols-3 border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
         {[
-          { number: "10+", label: "Years of uncompromising mastery in bespoke design." },
-          { number: "8", label: "Master craftspeople dedicated to uncompromised creation." },
-          { number: "Open", label: "Commissions are currently open. Begin your conversation." }
+          { number: "12+", label: "Years of uncompromising mastery in bespoke design." },
+          { number: "1450+", label: "Customers who trust our work and continue to choose us." },
+          { number: "550+", label: "Articles Available at All Times" }
 
         ].map((stat, i) => (
           <div key={i} className={`p-12 flex flex-col items-center justify-center border-b border-[var(--color-border-light)] border-b-[0.5px] md:border-b-0 ${i !== 3 ? 'md:border-r border-r-[0.5px]' : ''}`}>

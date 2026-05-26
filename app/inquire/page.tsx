@@ -17,8 +17,9 @@ export default function Inquire() {
       <div className="w-full max-w-2xl">
         {/* Editorial Header */}
         <h1 className="font-serif text-[48px] md:text-[64px] text-[var(--color-text-primary)] mb-8 leading-[1.1]">
-          {`We don't take orders.`}<br />
-         We begin <UnderlineText text="conversations." variant="color"/>
+          Start the <UnderlineText text="conversation." variant="color" />
+          <br />
+          We’ll handle the rest.
         </h1>
         
         <p className="text-[16px] text-[var(--color-text-primary)] leading-[1.9] mb-16 max-w-lg">
@@ -62,7 +63,7 @@ export default function Inquire() {
               className="w-full bg-transparent border-b border-[var(--color-border-light)] border-b-[0.5px] pb-4 text-[14px] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:border-[var(--color-brand-primary)] transition-colors duration-300 resize-none"
             ></textarea>
 
-            <div className="relative group border-b border-[var(--color-border-light)] border-b-[0.5px] pb-4">
+            {/* <div className="relative group border-b border-[var(--color-border-light)] border-b-[0.5px] pb-4">
               <select 
                 required
                 defaultValue=""
@@ -77,9 +78,9 @@ export default function Inquire() {
               <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--color-text-secondary)] text-[10px]">
                 ▼
               </div>
-            </div>
+            </div> */}
 
-            <div className="flex flex-col gap-6">
+            {/* <div className="flex flex-col gap-6">
               <span className="text-[14px] text-[var(--color-text-secondary)]">Are you working with an architect or interior designer?</span>
               <div className="flex gap-8">
                 {['Yes', 'No', 'Prefer not to say'].map((option) => (
@@ -96,7 +97,7 @@ export default function Inquire() {
                   </button>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             <div className="flex flex-col gap-6 mt-8">
               <button 
@@ -106,7 +107,7 @@ export default function Inquire() {
                 Send a letter →
               </button>
               <p className="font-serif italic text-[24px] text-[var(--color-text-secondary)] text-center">
-                We respond to every letter within 14 days. We do not follow up.
+                We respond to every letter within 2 days.
               </p>
             </div>
           </form>
