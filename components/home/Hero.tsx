@@ -1,22 +1,10 @@
-import Image from "next/image";
+import ImageSlider from "@/components/home/ImageSlider";
 import Link from "next/link";
 
 export default function Hero() {
   return (
     <section className="relative w-full min-h-[calc(100vh-53px)] flex flex-col md:flex-row border-b border-[var(--color-border-light)] border-b-[0.5px]">
-      {/* Background Image full width */}
-      <div className="absolute inset-0 z-0">
-        <Image 
-          src="https://darkgreen-deer-608928.hostingersite.com/wp-content/uploads/2026/05/bed1-3.jpeg"
-          alt="Contradiction moody interior"
-          fill
-          sizes="100vw"
-          className="object-cover opacity-80"
-          priority
-        />
-        {/* Dark overlay to make text readable */}
-        <div className="absolute inset-0 bg-black/70" />
-      </div>
+      <ImageSlider />
 
       {/* Content overlay */}
       <div className="relative z-10 w-full md:w-[55%] flex-1 flex flex-col justify-center px-6 py-24 md:py-0 md:px-16">
