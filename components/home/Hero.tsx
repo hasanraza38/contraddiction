@@ -41,7 +41,7 @@ export default function Hero() {
         </div>
 
         <div className="text-[10px] uppercase tracking-[0.3em] text-white/80 absolute bottom-8 left-6 md:left-16 animate-[fadeIn_1s_ease-out_1s_both]">
-          By private appointment — Karachi
+          
         </div>
       </div>
     </section>
