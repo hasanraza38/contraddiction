@@ -23,8 +23,8 @@ export default async function CataloguePreview() {
     { slug: "bed" },
     { slug: "sofa" },
     { slug: "dining-table" },
-    { slug: "decor-and-art" },
-    { slug: "tv-console" },
+    { slug: "wall-decor-and-accessories" },
+    { slug: "tv-units" },
     { slug: "dressing-table" },
     { slug: "lighting" }
   ];
@@ -34,8 +34,13 @@ export default async function CataloguePreview() {
     return found ? found.item : null;
   }).filter(Boolean);
 
+  console.log("Product", products);
+  
   const gridProducts = products.slice(0, 6);
   const singleProduct = products[6]; // the 7th product for single featured product
+
+  console.log("gridProducts: ", gridProducts);
+  console.log("singleProduct: ", singleProduct);
 
   return (
     <>
