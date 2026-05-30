@@ -14,7 +14,8 @@ const EditorialIntro = () => {
                 src="/sketch-17.jpeg"
                 alt="Architectural sketch background"
                 fill
-                className="object-contain md:object-cover object-center md:object-center"
+                className="object-contain md:object-cover object-center md:object-center select-none"
+                draggable={false}
                 priority
               />
             </div>
