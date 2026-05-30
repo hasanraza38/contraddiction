@@ -32,6 +32,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8 transition-opacity duration-500" 
                 alt={product.name} 
+                quality={20} 
                 priority
               />
             )}
@@ -84,7 +85,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
             </div>
 
             {/* Materials Table */}
-            <div className="mb-16">
+            {/* <div className="mb-16">
               <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-6">Materials</h3>
               <div className="flex flex-col">
                 <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
@@ -100,7 +101,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                   <span className="text-[var(--color-text-primary)]">{product.treatment}</span>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Craft Note */}
             <div className="mb-16">
@@ -121,7 +122,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
       </div>
 
       {/* The Making */}
-      <section className="w-full py-32 px-6 md:px-16 border-t border-[var(--color-border-light)] border-t-[0.5px]">
+      {/* <section className="w-full py-32 px-6 md:px-16 border-t border-[var(--color-border-light)] border-t-[0.5px]">
         <h2 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-16 text-center">The Making</h2>
         <div className="flex flex-col gap-16 max-w-6xl mx-auto">
           {product.photoGallery.map((img, i) => (
@@ -139,12 +140,12 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
             </motion.div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Other Pieces */}
       <section className="w-full border-t border-[var(--color-border-light)] border-t-[0.5px]">
         <div className="px-6 md:px-16 py-8 border-b border-[var(--color-border-light)] border-b-[0.5px]">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Other Pieces</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Related Products</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
           {relatedProducts.map((p, index) => (

@@ -1,22 +1,27 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 import { fetchGraphQL } from "@/lib/fetchGraphQL";
 import { GET_FEATURED_COLLECTION } from "@/graphql/queries";
-import { transformCatalogue } from "@/lib/graphql-types";
+import { transformCatalogue, CatalogueNode, NormalizedCatalogue } from "@/lib/graphql-types";
+import ProductCard from "@/components/catalogue/ProductCard";
 
 // Force ISR in case it's used directly
 export const revalidate = 1800;
 
+interface FeaturedCategory {
+  category: string;
+  categorySlug: string;
+  item: NormalizedCatalogue;
+}
+
 export default async function CataloguePreview() {
   const collectionsResponse = await fetchGraphQL(GET_FEATURED_COLLECTION);
 
-  const featuredCollection = collectionsResponse.data?.catalogueCategories?.nodes
-    ?.filter((cat: any) => cat.catalogues.nodes.length > 0)
-    .map((cat: any) => ({
+  const featuredCollection: FeaturedCategory[] = collectionsResponse.data?.catalogueCategories?.nodes
+    ?.filter((cat: { catalogues: { nodes: CatalogueNode[] } }) => cat.catalogues.nodes.length > 0)
+    .map((cat: { name: string; slug: string; catalogues: { nodes: CatalogueNode[] } }) => ({
       category: cat.name,
       categorySlug: cat.slug,
-      item: transformCatalogue(cat.catalogues.nodes[0]),
+      item: transformCatalogue(cat.catalogues.nodes[0] as CatalogueNode),
     })) || [];
 
   const FEATURED_CATEGORIES_MAPPING = [
@@ -29,10 +34,10 @@ export default async function CataloguePreview() {
     { slug: "lighting" }
   ];
 
-  let products = FEATURED_CATEGORIES_MAPPING.map(mapping => {
-    const found = featuredCollection.find((c: any) => c.categorySlug === mapping.slug);
+  const products: NormalizedCatalogue[] = FEATURED_CATEGORIES_MAPPING.map(mapping => {
+    const found = featuredCollection.find((c: FeaturedCategory) => c.categorySlug === mapping.slug);
     return found ? found.item : null;
-  }).filter(Boolean);
+  }).filter(Boolean) as NormalizedCatalogue[];
 
   console.log("Product", products);
   
@@ -50,41 +55,8 @@ export default async function CataloguePreview() {
         <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">{gridProducts.length} pieces</span>
       </div>
       <div className="grid grid-cols-1 gap-[4px] px-[4px] md:grid-cols-3">
-        {gridProducts.map((product: any, index: number) => (
-          <Link
-            key={product.id}
-            href={`/catalogue/${product.slug}`}
-            className={`relative group border border-[var(--color-brand-primary)] border-[0.5px] block overflow-hidden`}
-          >
-            <div className="w-full aspect-square relative bg-[#FAF7F7]">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              {/* Red tint overlay */}
-              <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
-              {/* Hover red slide in at 8% */}
-              <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
-              
-              {/* Hover Content Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
-                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="font-serif text-[24px] text-white leading-[1.2] mb-3">{product.name}</h3>
-                  <p className="text-[10px] uppercase tracking-[0.1em] text-white/80 leading-[1.8] line-clamp-3 mb-6">
-                    {product.argument || product.material}
-                  </p>
-                  <div className="border-t border-white/20 pt-4 flex justify-between items-center">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 truncate pr-4">{product.material}</span>
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-white flex items-center gap-2 flex-shrink-0">
-                      View <span className="text-[14px]">→</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
+        {gridProducts.map((product: NormalizedCatalogue) => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </section>
