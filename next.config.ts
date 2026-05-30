@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
         pathname: '/**', // Matches any path on this domain
       },
     ],
+    formats: ['image/webp'],
+
   },
   allowedDevOrigins: ['admonitory-kasandra-penitently.ngrok-free.dev'],
 };

@@ -39,12 +39,12 @@ export default async function CataloguePreview() {
     return found ? found.item : null;
   }).filter(Boolean) as NormalizedCatalogue[];
 
-  console.log("Product", products);
+  // console.log("Product", products);
   
   const gridProducts = products.slice(0, 6);
   // const singleProduct = products[6]; // the 7th product for single featured product
 
-  console.log("gridProducts: ", gridProducts);
+  // console.log("gridProducts: ", gridProducts);
   // console.log("singleProduct: ", singleProduct);
 
   return (

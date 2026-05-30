@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { NormalizedCatalogue } from "@/lib/graphql-types";
+import ProtectedImage from "@/components/common/ProtectedImage";
 
 interface ProductDetailClientProps {
   product: NormalizedCatalogue;
@@ -25,14 +25,13 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
         <div className="w-full lg:w-[60%] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px] self-start">
           <div className="relative bg-[#FAF7F7] w-full flex items-center justify-center overflow-hidden">
             {activeImage && (
-              <Image 
+              <ProtectedImage 
                 src={activeImage} 
                 width={1600}
                 height={1600}
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8 transition-opacity duration-500" 
+                className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8 transition-opacity duration-500"
                 alt={product.name} 
-                quality={20} 
                 priority
               />
             )}
@@ -46,7 +45,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                   onClick={() => setActiveImage(img)}
                   className={`relative h-full aspect-square bg-[#FAF7F7] overflow-hidden border ${activeImage === img ? 'border-[var(--color-brand-primary)]' : 'border-transparent'}`}
                 >
-                  <Image src={img} fill sizes="120px" className="object-cover grayscale" alt={`Thumbnail ${idx}`} />
+                  <ProtectedImage src={img} fill sizes="120px" className="object-cover grayscale" alt={`Thumbnail ${idx}`} />
                 </button>
               ))}
             </div>
@@ -135,7 +134,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
               className="flex flex-col gap-4"
             >
               <div className="w-full aspect-[21/9] relative bg-[#FAF7F7]">
-                <Image src={img.url} fill sizes="100vw" className="object-cover grayscale" alt={`Making of ${product.name} ${i+1}`} />
+                <ProtectedImage src={img.url} fill sizes="100vw" className="object-cover grayscale" alt={`Making of ${product.name} ${i+1}`} />
               </div>
             </motion.div>
           ))}
@@ -155,7 +154,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
               className={`relative group border-b border-[var(--color-brand-primary)] border-b-[0.5px] md:border-b-0 ${index !== relatedProducts.length - 1 ? 'md:border-r border-r-[0.5px]' : ''}`}
             >
               <div className="w-full aspect-square relative overflow-hidden bg-[#FAF7F7]">
-                <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                <ProtectedImage src={p.image} alt={p.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                 <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500 ease-out" />
               </div>
               <div className="p-6 border-t border-[var(--color-brand-primary)] border-t-[0.5px] flex justify-between">

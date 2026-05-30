@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { NormalizedCatalogue } from '@/lib/graphql-types';
+import ProtectedImage from '@/components/common/ProtectedImage';
 
 interface ProductCardProps {
   product: NormalizedCatalogue;
@@ -14,7 +14,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       className={`relative group border border-[var(--color-brand-primary)] border-[0.5px] block overflow-hidden`}
     >
       <div className="w-full aspect-square relative bg-[#FAF7F7]">
-        <Image
+        <ProtectedImage
           src={product.image}
           alt={product.name}
           fill
