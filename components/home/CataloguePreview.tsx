@@ -37,10 +37,10 @@ export default async function CataloguePreview() {
   console.log("Product", products);
   
   const gridProducts = products.slice(0, 6);
-  const singleProduct = products[6]; // the 7th product for single featured product
+  // const singleProduct = products[6]; // the 7th product for single featured product
 
   console.log("gridProducts: ", gridProducts);
-  console.log("singleProduct: ", singleProduct);
+  // console.log("singleProduct: ", singleProduct);
 
   return (
     <>
@@ -91,7 +91,7 @@ export default async function CataloguePreview() {
 
     
     {/* single featured product */}
-    {singleProduct && (
+    {/* {singleProduct && (
       <section className="w-full flex flex-col md:flex-row border-b border-[var(--color-border-light)] border-b-[0.5px] bg-[#FFFFFF]">
            <div className="w-full md:w-[60%] aspect-square md:aspect-auto relative border-b md:border-b-0 md:border-r border-[var(--color-border-light)] border-r-[0.5px]">
              <Image 
@@ -111,7 +111,6 @@ export default async function CataloguePreview() {
                  {singleProduct.name}
                </h2>
                
-               {/* The Argument */}
                <div className="mb-16">
                  <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-6">The Argument</h3>
                  <div className="flex flex-col gap-4 text-[16px] text-[var(--color-text-primary)] leading-[1.9] whitespace-pre-wrap">
@@ -119,7 +118,6 @@ export default async function CataloguePreview() {
                  </div>
                </div>
 
-               {/* Materials Table */}
                <div className="mb-16">
                  <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-6">Materials</h3>
                  <div className="flex flex-col">
@@ -138,7 +136,6 @@ export default async function CataloguePreview() {
                  </div>
                </div>
 
-               {/* Craft Note */}
                <div className="mb-16">
                  <p className="font-serif italic text-[18px] text-[var(--color-text-secondary)] leading-relaxed">
                    {`"${singleProduct.craftNote}"`}
@@ -146,7 +143,6 @@ export default async function CataloguePreview() {
                </div>
              </div>
 
-             {/* View Full Piece Button */}
              <Link 
                href={`/catalogue/${singleProduct.slug}`} 
                className="w-full bg-[var(--color-brand-primary)] text-white text-center py-6 text-[10px] uppercase tracking-[0.3em] hover:bg-[var(--color-brand-hover)] transition-colors"
@@ -155,7 +151,7 @@ export default async function CataloguePreview() {
              </Link>
            </div>
       </section>
-    )}
+    )} */}
     </>
   )
 }
