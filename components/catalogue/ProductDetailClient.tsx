@@ -17,23 +17,60 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
   if (allImages.length === 0) allImages.push(product.image);
   
   const [activeImage, setActiveImage] = useState<string>(allImages[0] || "");
+  const [zoom, setZoom] = useState({ show: false, x: 50, y: 50 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!zoom.show) return;
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setZoom(prev => ({ ...prev, x, y }));
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!zoom.show) {
+      const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+      const x = ((e.clientX - left) / width) * 100;
+      const y = ((e.clientY - top) / height) * 100;
+      setZoom({ show: true, x, y });
+    } else {
+      setZoom(prev => ({ ...prev, show: false }));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setZoom({ show: false, x: 50, y: 50 });
+  };
 
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
       <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-53px)] relative">
         {/* Left Panel - Sticky */}
         <div className="w-full lg:w-[60%] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px] self-start">
-          <div className="relative bg-[#FAF7F7] w-full flex items-center justify-center overflow-hidden">
+          <div 
+            className={`relative bg-[#FAF7F7] w-full flex items-center justify-center overflow-hidden group ${zoom.show ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+          >
             {activeImage && (
-              <ProtectedImage 
-                src={activeImage} 
-                width={1600}
-                height={1600}
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8 transition-opacity duration-500"
-                alt={product.name} 
-                priority
-              />
+              <div 
+                className="w-full h-full flex items-center justify-center transition-transform duration-300 ease-out"
+                style={{
+                  transformOrigin: `${zoom.x}% ${zoom.y}%`,
+                  transform: zoom.show ? "scale(2.5)" : "scale(1)"
+                }}
+              >
+                <ProtectedImage 
+                  src={activeImage} 
+                  width={1600}
+                  height={1600}
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8"
+                  alt={product.name} 
+                  priority
+                />
+              </div>
             )}
           </div>
           
