@@ -198,7 +198,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
-            className="flex-1 flex overflow-x-auto px-2 md:px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
+            className={`flex-1 flex overflow-x-auto px-2 md:px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
           >
             {dynamicCategories.map((cat, i) => (
               <div key={cat} className="flex items-center gap-6 md:gap-12  shrink-0">
@@ -285,7 +285,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
           <button 
             onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
-            className="text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
+            className="text-[10px] uppercase cursor-pointer tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
           >
             ← Prev
           </button>
@@ -299,7 +299,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
                 <button
                   key={i}
                   onClick={() => handlePageChange(page as number)}
-                  className={`text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 ${currentPage === page ? 'text-[var(--color-text-primary)] font-bold' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)]'}`}
+                  className={`text-[10px] uppercase tracking-[0.3em] cursor-pointer transition-colors duration-300 ${currentPage === page ? 'text-[var(--color-text-primary)] font-bold' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-brand-primary)]'}`}
                 >
                   {page}
                 </button>
@@ -309,7 +309,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
           <button 
             onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
             disabled={currentPage === totalPages}
-            className="text-[10px] uppercase tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
+            className="text-[10px] uppercase cursor-pointer tracking-[0.3em] transition-colors duration-300 disabled:opacity-30 hover:text-[var(--color-brand-primary)]"
           >
             Next →
           </button>

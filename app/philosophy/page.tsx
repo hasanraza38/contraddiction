@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import UnderlineText from "@/components/ui/UnderlineText";
+import Timeline from "@/components/Timeline";
 
 export default function Philosophy() {
   const sections = [
@@ -103,7 +104,7 @@ export default function Philosophy() {
               {`"A room is not a container for comfort. It is a stage for the deliberate. Every object within it is either a decision or an accident."`}
             </blockquote>
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#FFFFFF] opacity-80">
-              — The Contradiction Atelier
+              — The Contradictions
             </p>
           </div>
         </div>
@@ -138,7 +139,8 @@ export default function Philosophy() {
           </div>
         </div>
       </div>
-
+       <Timeline/>
+  
       {/* End CTA */}
       <div className="w-full py-32 border-t border-[var(--color-border-light)] border-t-[0.5px] flex justify-center">
         <Link 

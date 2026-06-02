@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import EditorialIntro from "@/components/home/EditorialIntro";
 import Hero from "@/components/home/Hero";
 import Marquee from "@/components/home/Marquee";
@@ -7,7 +5,7 @@ import CataloguePreview from "@/components/home/CataloguePreview";
 import Stats from "@/components/home/Stats";
 import MaterialsAndCraft from "@/components/home/MaterialsAndCraft";
 import JournalPreview from "@/components/home/JournalPreview";
-import AtelierTeaser from "@/components/home/AtelierTeaser";
+import CatalogueTeaser from "@/components/home/CatalogueTeaser";
 
 export const revalidate = 1800; // 30 minutes
 
@@ -35,8 +33,8 @@ export default function Home() {
       {/* Section 8 — Journal preview */}
       <JournalPreview />
 
-      {/* Section 9 — Atelier teaser */}
-      <AtelierTeaser />
+      {/* Section 9 — Catalogue teaser */}
+      <CatalogueTeaser/>
       
 
 

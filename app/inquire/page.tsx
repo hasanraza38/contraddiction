@@ -2,14 +2,35 @@
 
 import UnderlineText from "@/components/ui/UnderlineText";
 import { FormEvent, useState } from "react";
+import { sendContactEmail } from "@/app/actions/contact";
 
 export default function Inquire() {
   const [submitted, setSubmitted] = useState(false);
-  const [designerStatus, setDesignerStatus] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const location = formData.get("location") as string;
+    formData.set("subject", `Inquiry from ${location}`);
+
+    try {
+      const res = await sendContactEmail(formData);
+      if (res.success) {
+        setSubmitted(true);
+      } else {
+        setError(res.error || "Failed to transmit message. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -23,7 +44,7 @@ export default function Inquire() {
         </h1>
         
         <p className="text-[16px] text-[var(--color-text-primary)] leading-[1.9] mb-16 max-w-lg">
-         <UnderlineText text="Contradiction" variant="underline"/> accepts a limited number of commissions each year. If you are considering one, tell us about the space, not the piece. We will take it from there.
+          To acquire a <UnderlineText text="Contradiction" variant="underline"/> piece, tell us about the architecture and intent of your space. We will take it from there.
         </p>
 
         {submitted ? (
@@ -35,6 +56,7 @@ export default function Inquire() {
             
             <div className="flex flex-col gap-12">
               <input 
+                name="name"
                 type="text" 
                 placeholder="Full name"
                 required
@@ -42,13 +64,22 @@ export default function Inquire() {
               />
               
               <input 
+                name="email"
                 type="email" 
                 placeholder="Email"
                 required
                 className="w-full bg-transparent border-b border-[var(--color-border-light)] border-b-[0.5px] pb-4 text-[14px] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:border-[var(--color-brand-primary)] transition-colors duration-300"
               />
+
+              <input 
+                name="phone"
+                type="tel" 
+                placeholder="Phone number"
+                className="w-full bg-transparent border-b border-[var(--color-border-light)] border-b-[0.5px] pb-4 text-[14px] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:border-[var(--color-brand-primary)] transition-colors duration-300"
+              />
               
               <input 
+                name="location"
                 type="text" 
                 placeholder="City / Country"
                 required
@@ -57,54 +88,25 @@ export default function Inquire() {
             </div>
 
             <textarea 
+              name="message"
               placeholder="Tell us about the space"
               required
               rows={6}
               className="w-full bg-transparent border-b border-[var(--color-border-light)] border-b-[0.5px] pb-4 text-[14px] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:outline-none focus:border-[var(--color-brand-primary)] transition-colors duration-300 resize-none"
             ></textarea>
-
-            {/* <div className="relative group border-b border-[var(--color-border-light)] border-b-[0.5px] pb-4">
-              <select 
-                required
-                defaultValue=""
-                className="w-full bg-transparent text-[14px] text-[var(--color-text-primary)] focus:outline-none appearance-none cursor-pointer"
-              >
-                <option value="" disabled className="text-[var(--color-text-secondary)]">How did you come to know us?</option>
-                <option value="client">Through a client</option>
-                <option value="architect">Through an architect</option>
-                <option value="word">By word of mouth</option>
-                <option value="cannot-say">I cannot say</option>
-              </select>
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--color-text-secondary)] text-[10px]">
-                ▼
-              </div>
-            </div> */}
-
-            {/* <div className="flex flex-col gap-6">
-              <span className="text-[14px] text-[var(--color-text-secondary)]">Are you working with an architect or interior designer?</span>
-              <div className="flex gap-8">
-                {['Yes', 'No', 'Prefer not to say'].map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => setDesignerStatus(option)}
-                    className={`relative text-[14px] transition-colors duration-300 pb-1 ${designerStatus === option ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}`}
-                  >
-                    {option}
-                    {designerStatus === option && (
-                      <span className="absolute bottom-0 left-0 w-full h-[0.5px] bg-[var(--color-brand-primary)]"></span>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div> */}
+            {error && (
+              <p className="text-[12px] text-[var(--color-brand-primary)] uppercase tracking-[0.2em] text-center font-medium animate-[fadeIn_0.5s_ease-out]">
+                {error}
+              </p>
+            )}
 
             <div className="flex flex-col gap-6 mt-8">
               <button 
                 type="submit"
-                className="w-full bg-[var(--color-brand-primary)] text-white text-[10px] uppercase tracking-[0.3em] py-6 hover:bg-[var(--color-brand-hover)] transition-colors duration-500"
+                disabled={isSubmitting}
+                className="w-full bg-[var(--color-brand-primary)] text-white text-[10px] uppercase tracking-[0.3em] py-6 hover:bg-[var(--color-brand-hover)] transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                Send inquiry →
+                {isSubmitting ? "Sending inquiry..." : "Send inquiry →"}
               </button>
               <p className="font-serif italic text-[24px] text-[var(--color-text-secondary)] text-center">
                 We respond to every inquiry within 2 days.

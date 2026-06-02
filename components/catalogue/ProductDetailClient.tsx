@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { NormalizedCatalogue } from "@/lib/graphql-types";
 import ProtectedImage from "@/components/common/ProtectedImage";
+import ProductCard from "./ProductCard";
 
 interface ProductDetailClientProps {
   product: NormalizedCatalogue;
@@ -17,60 +18,23 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
   if (allImages.length === 0) allImages.push(product.image);
   
   const [activeImage, setActiveImage] = useState<string>(allImages[0] || "");
-  const [zoom, setZoom] = useState({ show: false, x: 50, y: 50 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!zoom.show) return;
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-    setZoom(prev => ({ ...prev, x, y }));
-  };
-
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!zoom.show) {
-      const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-      const x = ((e.clientX - left) / width) * 100;
-      const y = ((e.clientY - top) / height) * 100;
-      setZoom({ show: true, x, y });
-    } else {
-      setZoom(prev => ({ ...prev, show: false }));
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setZoom({ show: false, x: 50, y: 50 });
-  };
 
   return (
     <div className="flex flex-col w-full bg-[#FFFFFF]">
       <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-53px)] relative">
         {/* Left Panel - Sticky */}
         <div className="w-full lg:w-[60%] lg:sticky top-[53px] flex flex-col border-b lg:border-b-0 lg:border-r border-[var(--color-border-light)] lg:border-r-[0.5px] self-start">
-          <div 
-            className={`relative bg-[#FAF7F7] w-full flex items-center justify-center overflow-hidden group ${zoom.show ? 'cursor-zoom-out' : 'cursor-zoom-in'}`}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={handleClick}
-          >
+          <div className="relative bg-[#FAF7F7] w-full h-[70vh] lg:h-[calc(100vh-173px)] flex items-center justify-center overflow-hidden">
             {activeImage && (
-              <div 
-                className="w-full h-full flex items-center justify-center transition-transform duration-300 ease-out"
-                style={{
-                  transformOrigin: `${zoom.x}% ${zoom.y}%`,
-                  transform: zoom.show ? "scale(2.5)" : "scale(1)"
-                }}
-              >
-                <ProtectedImage 
-                  src={activeImage} 
-                  width={1600}
-                  height={1600}
-                  sizes="(max-width: 1024px) 100vw, 60vw"
-                  className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8"
-                  alt={product.name} 
-                  priority
-                />
-              </div>
+              <ProtectedImage 
+                src={activeImage} 
+                width={1600}
+                height={1600}
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="w-full h-auto max-h-[70vh] lg:max-h-[calc(100vh-173px)] object-contain p-4 md:p-8"
+                alt={product.name} 
+                priority
+              />
             )}
           </div>
           
@@ -86,9 +50,9 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                 </button>
               ))}
             </div>
-            <div className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
+            {/* <div className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
               No. 00{product.id}
-            </div>
+            </div> */}
           </div>
         </div>
         
@@ -101,50 +65,34 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
               <span className="text-[var(--color-brand-primary)]">/</span>
               <span className="hover:text-[var(--color-text-primary)] cursor-pointer">{product.category}</span>
               <span className="text-[var(--color-brand-primary)]">/</span>
-              <span className="text-[var(--color-text-primary)]">{product.name}</span>
+              <span className="text-[var(--color-brand-primary)] ">{product.name}</span>
             </div>
 
             <h1 className="font-serif text-[48px] md:text-[56px] text-[var(--color-text-primary)] leading-[1.1] mb-6">
               {product.name}
             </h1>
-            
-            {/* <div className="flex justify-between items-center pb-6 border-b border-[var(--color-border-light)] border-b-[0.5px] mb-12 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
-              <span>{product.year}</span>
-            </div> */}
-
             {/* The Argument */}
-            <div className="mb-16">
-              <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-6">The Argument</h3>
-              <div className="flex flex-col gap-4 text-[16px] text-[var(--color-text-primary)] leading-[1.9] whitespace-pre-wrap">
+            <div className="mb-12">
+              <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-4 font-semibold">The Argument</h3>
+              <div className="flex flex-col gap-4 text-[20px] text-[var(--color-text-primary)] leading-[1.8] whitespace-pre-wrap font-light">
                 {product.argument}
               </div>
             </div>
 
-            {/* Materials Table */}
-            {/* <div className="mb-16">
-              <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-6">Materials</h3>
-              <div className="flex flex-col">
-                <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
-                  <span className="text-[var(--color-text-secondary)]">Material</span>
-                  <span className="text-[var(--color-text-primary)]">{product.material}</span>
-                </div>
-                <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
-                  <span className="text-[var(--color-text-secondary)]">Origin</span>
-                  <span className="text-[var(--color-text-primary)]">{product.origin}</span>
-                </div>
-                <div className="py-4 border-b border-[var(--color-border-light)] border-b-[0.5px] flex justify-between text-[10px] uppercase tracking-[0.2em]">
-                  <span className="text-[var(--color-text-secondary)]">Treatment</span>
-                  <span className="text-[var(--color-text-primary)]">{product.treatment}</span>
-                </div>
-              </div>
-            </div> */}
+            {/* Spacer to push Craft Note & Button to bottom, resolving the leftover gap */}
+            <div className="flex-grow min-h-[10px]" />
 
             {/* Craft Note */}
-            <div className="mb-16">
-              <p className="font-serif italic text-[18px] text-[var(--color-text-secondary)] leading-relaxed">
-                {`"${product.craftNote}"`}
-              </p>
-            </div>
+            {product.craftNote && (
+              <div className="mb-12 pt-8 border-t border-[var(--color-border-light)] border-t-[0.5px]">
+                <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-4 font-semibold">The Craft</h3>
+                <p className="font-serif italic text-[30px] text-[var(--color-text-secondary)] leading-relaxed">
+                  <span className="text-[var(--color-brand-primary)] font-serif not-italic mr-1">“</span>
+                  {product.craftNote}
+                  <span className="text-[var(--color-brand-primary)] font-serif not-italic ml-1">”</span>
+                </p>
+              </div>
+            )}
           </div>
           
           {/* Begin Conversation Button */}
@@ -157,49 +105,52 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
         </div>
       </div>
 
-      {/* The Making */}
-      {/* <section className="w-full py-32 px-6 md:px-16 border-t border-[var(--color-border-light)] border-t-[0.5px]">
-        <h2 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)] mb-16 text-center">The Making</h2>
-        <div className="flex flex-col gap-16 max-w-6xl mx-auto">
-          {product.photoGallery.map((img, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex flex-col gap-4"
-            >
-              <div className="w-full aspect-[21/9] relative bg-[#FAF7F7]">
-                <ProtectedImage src={img.url} fill sizes="100vw" className="object-cover grayscale" alt={`Making of ${product.name} ${i+1}`} />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section> */}
 
       {/* Other Pieces */}
       <section className="w-full border-t border-[var(--color-border-light)] border-t-[0.5px]">
         <div className="px-6 md:px-16 py-8 border-b border-[var(--color-border-light)] border-b-[0.5px]">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">Related Products</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)]">Related Products</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
           {relatedProducts.map((p, index) => (
-            <Link 
-              key={p.id} 
-              href={`/catalogue/${p.slug}`}
-              className={`relative group border-b border-[var(--color-brand-primary)] border-b-[0.5px] md:border-b-0 ${index !== relatedProducts.length - 1 ? 'md:border-r border-r-[0.5px]' : ''}`}
-            >
-              <div className="w-full aspect-square relative overflow-hidden bg-[#FAF7F7]">
-                <ProtectedImage src={p.image} alt={p.name} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-[0.08] transition-opacity duration-500 ease-out" />
-              </div>
-              <div className="p-6 border-t border-[var(--color-brand-primary)] border-t-[0.5px] flex justify-between">
-                <div>
-                  <h3 className="font-serif text-[18px] text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">{p.name}</h3>
-                </div>
-              </div>
-            </Link>
+            // <Link 
+            //   key={p.id} 
+            //   href={`/catalogue/${p.slug}`}
+            //   className={`relative group border-b border-[var(--color-brand-primary)] border-b-[0.5px] md:border-b-0 ${index !== relatedProducts.length - 1 ? 'md:border-r border-r-[var(--color-brand-primary)] border-r-[0.5px]' : ''} block overflow-hidden`}
+            // >
+            //   <div className="w-full aspect-square relative bg-[#FAF7F7]">
+            //     <ProtectedImage 
+            //       src={p.image} 
+            //       alt={p.name} 
+            //       fill 
+            //       sizes="(max-width: 768px) 100vw, 33vw" 
+            //       className="object-cover grayscale-0 group-hover:grayscale transition-all duration-700 group-hover:scale-105" 
+            //     />
+                
+            //     <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
+              
+            //     <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
+                
+             
+            //     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
+            //       <div className="transform translate-y-0 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            //         <h3 className="font-serif text-[20px] md:text-[24px] text-white leading-[1.2] mb-2">{p.name}</h3>
+            //         {p.argument && (
+            //           <p className="text-[10px] uppercase tracking-[0.1em] text-white/80 leading-[1.8] line-clamp-2 mb-4">
+            //             {p.argument}
+            //           </p>
+            //         )}
+            //         <div className="border-t border-white/20 pt-3 flex justify-between items-center">
+            //           <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 truncate pr-4">{p.category}</span>
+            //           <span className="text-[10px] uppercase tracking-[0.3em] text-white flex items-center gap-2 flex-shrink-0 font-semibold">
+            //             View <span className="text-[14px]">→</span>
+            //           </span>
+            //         </div>
+            //       </div>
+            //     </div>
+            //   </div>
+            // </Link>
+             <ProductCard key={p.id} product={p} />
           ))}
         </div>
       </section>

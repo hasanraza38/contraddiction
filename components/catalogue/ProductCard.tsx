@@ -8,18 +8,37 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const hasSecondaryImage = (product.photoGallery?.length || 0) > 1;
+  const hoverImage = hasSecondaryImage
+    ? (product.photoGallery.find(img => img.url && img.url !== product.image)?.url || product.photoGallery[1]?.url)
+    : undefined;
+  const showHoverImage = !!hoverImage;
+
   return (
     <Link
       href={`/catalogue/${product.slug}`}
       className={`relative group border border-[var(--color-brand-primary)] border-[0.5px] block overflow-hidden`}
     >
       <div className="w-full aspect-square relative bg-[#FAF7F7]">
+        {/* Default Image */}
         <ProtectedImage
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className={`object-cover transition-all duration-700 group-hover:scale-105 ${
+            showHoverImage ? "opacity-100 group-hover:opacity-0" : ""
+          }`}
         />
+
+        {/* Hover/Secondary Image */}
+        {showHoverImage && (
+          <ProtectedImage
+            src={hoverImage}
+            alt={`${product.name} alternate`}
+            fill
+            className="object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
+          />
+        )}
         {/* Red tint overlay */}
         <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
         {/* Hover red slide in at 8% */}
