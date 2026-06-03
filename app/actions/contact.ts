@@ -28,11 +28,13 @@ export async function sendContactEmail(formData: FormData) {
       from: `"${name}" <${process.env.SMTP_USER}>`,
       to: process.env.ADMIN_EMAIL,
       replyTo: email,
-      subject: `New Inquiry via Built Perception: ${subject || 'General Contact'}`,
+      subject: `New Inquiry via Contradictions: ${subject || 'General Contact'}`,
       text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nSubject: ${subject}\n\nMessage:\n${message}`,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 40px; border-top: 5px solid #000;">
-          <h2 style="margin-top: 0; color: #000; text-transform: uppercase; letter-spacing: 2px;">New Direct Inquiry</h2>
+        <div style="font-family: font-serif; max-width: 600px; margin: 0 auto; background-color: #faf9f6; padding: 40px; border-top: 5px solid #a50000;">
+        <img src="/logo-contradictionsv2.png" alt="Contradictions Collection" style="width: 150px; margin-bottom: 30px;" />
+          
+          <h2 style="margin-top: 0; color: #a50000; text-transform: uppercase; letter-spacing: 2px;">New Direct Inquiry</h2>
           <p style="color: #666; margin-bottom: 30px;">A new request has been transmitted from your website.</p>
           
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
@@ -54,7 +56,7 @@ export async function sendContactEmail(formData: FormData) {
             </tr>
           </table>
           
-          <div style="background: #fff; padding: 20px; border-left: 4px solid #000;">
+          <div style="background: #fff; padding: 20px; border-left: 4px solid #a50000;">
             <p style="margin: 0; line-height: 1.6; white-space: pre-wrap;">${message}</p>
           </div>
         </div>

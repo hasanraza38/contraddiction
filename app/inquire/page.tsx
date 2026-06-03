@@ -4,6 +4,8 @@ import UnderlineText from "@/components/ui/UnderlineText";
 import { FormEvent, useState } from "react";
 import { sendContactEmail } from "@/app/actions/contact";
 
+
+
 export default function Inquire() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,7 +22,7 @@ export default function Inquire() {
 
     try {
       const res = await sendContactEmail(formData);
-      if (res.success) {
+      if (res.success) { 
         setSubmitted(true);
       } else {
         setError(res.error || "Failed to transmit message. Please try again.");
