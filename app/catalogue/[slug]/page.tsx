@@ -20,7 +20,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     notFound();
   }
   
-    console.log("relatedResponse", relatedResponse?.data?.catalogue?.catalogueCollections?.nodes?.catalogue);
+  
 
   const product = transformCatalogue(data.catalogue);
 
@@ -46,7 +46,6 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     .filter((p: any) => p.id !== product.id)
     .slice(0, 3);
 
-    console.log(relatedProducts);
     
 
   return <ProductDetailClient product={product} relatedProducts={relatedProducts} />;
