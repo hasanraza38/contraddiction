@@ -289,3 +289,38 @@ query GetJournalsLimited($first: Int = 3) {
 `;
 
 
+export const GET_RELATED_PRODUCTS = gql`
+  query GetRelatedProducts($slug: ID!, $first: Int = 5) {
+    catalogue(id: $slug, idType: SLUG) {
+      catalogueCollections {
+        nodes {
+          name
+          slug
+          catalogues(first: $first) {
+            nodes {
+              id
+              title
+              slug
+              featuredImage {
+                node {
+                  sourceUrl
+                }
+              }
+              catalogueCategories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              catalogueDetails {
+                material
+                origin
+                treatment
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
