@@ -70,7 +70,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
             </h1>
             {/* The Argument */}
             <div className="mb-12">
-              <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-4 font-semibold">The Argument</h3>
+              <h3 className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-brand-primary)] mb-4 font-semibold">DESCRIPTION</h3>
               <div className="flex flex-col gap-4 text-[20px] text-[var(--color-text-primary)] leading-[1.8] whitespace-pre-wrap font-light">
                 {product.argument}
               </div>
@@ -118,7 +118,8 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
       {/* Closing Quote */}
       <section className="w-full py-32 px-6 flex justify-center border-t border-[var(--color-border-light)] border-t-[0.5px]">
         <h2 className="font-serif italic text-3xl md:text-[48px] text-[var(--color-text-primary)] text-center max-w-4xl leading-relaxed">
-          {`"You don't buy a Contradiction piece. You inherit the argument."`}
+          <span className="tracking-wider">Not Just Made To Be Seen,</span> <br /><span className="tracking-tight">Made To Be </span>
+          <span className="text-[var(--color-brand-primary)] underline underline-offset-6 decoration-2">Remembered</span>
         </h2>
       </section>
     </div>

@@ -14,7 +14,7 @@ const Timeline = () => {
         <section className="w-full py-32 md:py-48 px-6 md:px-24 lg:px-32 border-b border-[var(--color-border-light)] border-b-[0.5px] flex flex-col md:flex-row gap-16 md:gap-32">
             <div className="w-full md:w-1/3">
                 <h2 className="font-serif text-[40px] md:text-[56px] text-[var(--color-text-primary)] sticky top-32">
-                    From Creation to<br /> Your Doorstep
+                    From Creation To<br /> Your Doorstep
                 </h2>
             </div>
             <div className="w-full md:w-2/3 relative">

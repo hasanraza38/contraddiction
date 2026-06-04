@@ -11,7 +11,7 @@ interface ImageSliderProps {
 export default function ImageSlider({
   images = [
     "https://darkgreen-deer-608928.hostingersite.com/wp-content/uploads/2026/05/bed1-3.jpeg",
-    "https://images.unsplash.com/photo-1680503397692-cd0da21a0bec?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1676807882739-d4c9deaf1fee?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1640357960494-9242650846d3?q=80&w=1043&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ],
   interval = 5000,
