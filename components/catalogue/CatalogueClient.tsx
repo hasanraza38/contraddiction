@@ -33,8 +33,55 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  // Use fetched categories if provided, otherwise derive from products
-  const dynamicCategories = ["All", ...Array.from(new Set(fetchedCategories.length > 0 ? fetchedCategories : products.map(p => p.category).filter(Boolean)))];
+  // Predefined category order for the filter bar
+  const CATEGORY_ORDER = [
+    "bed",
+    "sofa",
+    "dining-table",
+    "lighting",
+    "dressing-table",
+    "seating",
+    "tables",
+    "tv-unit",
+    "wall-decor-and-accesories",
+  ];
+
+  // Helper to slugify category name for matching predefined order
+  const getSlug = (name: string): string => {
+    const slug = name
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
+    
+    // Normalize common variants to match CATEGORY_ORDER slugs
+    if (slug === "tv-units") return "tv-unit";
+    if (slug === "wall-decor-and-accessories") return "wall-decor-and-accesories";
+    return slug;
+  };
+
+  const categoryOrderMap = new Map<string, number>(
+    CATEGORY_ORDER.map((cat, index) => [cat.toLowerCase(), index])
+  );
+
+  const getCategoryRank = (cat: string) => {
+    const slug = getSlug(cat);
+    const rank = categoryOrderMap.get(slug);
+    return rank !== undefined ? rank : 9999;
+  };
+
+  const rawCategories = Array.from(new Set(fetchedCategories.length > 0 ? fetchedCategories : products.map(p => p.category).filter(Boolean)));
+  rawCategories.sort((a, b) => {
+    const rankA = getCategoryRank(a);
+    const rankB = getCategoryRank(b);
+    if (rankA !== rankB) return rankA - rankB;
+    return a.localeCompare(b);
+  });
+
+  const dynamicCategories = ["All", ...rawCategories];
 
   const categoryParam = searchParams.get("category");
   const initialCategory = categoryParam || "All";
@@ -238,38 +285,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
       >
         {paginatedProducts.map((product) => (
           <motion.div variants={itemVariants} key={product.id} className="bg-[#FFFFFF] border border-[var(--color-brand-primary)] border-[0.5px]">
-            {/* <Link 
-              href={`/catalogue/${product.slug}`}
-              className="block group h-full flex flex-col"
-            >
-              <div className="w-full aspect-square relative overflow-hidden bg-[#FAF7F7]">
-                <Image 
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover bg-full "
-                />
-             
-                
-                 <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
-              </div>
-              <div className="p-6 flex flex-col justify-between flex-grow min-h-[140px]">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="font-serif text-[18px] text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-primary)] transition-colors duration-300">{product.name}</h3>
-                    <div className="flex gap-4 mt-2">
-                      <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">{product.material}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[var(--color-brand-primary)] text-[10px] uppercase tracking-[0.3em] opacity-100 md:opacity-0 group-hover:opacity-100 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                  View →
-                </div>
-              </div>
-            </Link> */}
-
+          
             <ProductCard key={product.id} product={product} />
           </motion.div>
         ))}
