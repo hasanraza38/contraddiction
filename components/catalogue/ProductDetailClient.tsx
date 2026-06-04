@@ -50,9 +50,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                 </button>
               ))}
             </div>
-            {/* <div className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
-              No. 00{product.id}
-            </div> */}
           </div>
         </div>
         
@@ -113,43 +110,6 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3">
           {relatedProducts.map((p, index) => (
-            // <Link 
-            //   key={p.id} 
-            //   href={`/catalogue/${p.slug}`}
-            //   className={`relative group border-b border-[var(--color-brand-primary)] border-b-[0.5px] md:border-b-0 ${index !== relatedProducts.length - 1 ? 'md:border-r border-r-[var(--color-brand-primary)] border-r-[0.5px]' : ''} block overflow-hidden`}
-            // >
-            //   <div className="w-full aspect-square relative bg-[#FAF7F7]">
-            //     <ProtectedImage 
-            //       src={p.image} 
-            //       alt={p.name} 
-            //       fill 
-            //       sizes="(max-width: 768px) 100vw, 33vw" 
-            //       className="object-cover grayscale-0 group-hover:grayscale transition-all duration-700 group-hover:scale-105" 
-            //     />
-                
-            //     <div className="absolute inset-0 bg-[var(--color-brand-primary)] mix-blend-multiply opacity-0 group-hover:opacity-15 transition-opacity duration-500" />
-              
-            //     <div className="absolute inset-0 bg-[var(--color-brand-primary)] opacity-0 group-hover:opacity-[0.08] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
-                
-             
-            //     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
-            //       <div className="transform translate-y-0 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-            //         <h3 className="font-serif text-[20px] md:text-[24px] text-white leading-[1.2] mb-2">{p.name}</h3>
-            //         {p.argument && (
-            //           <p className="text-[10px] uppercase tracking-[0.1em] text-white/80 leading-[1.8] line-clamp-2 mb-4">
-            //             {p.argument}
-            //           </p>
-            //         )}
-            //         <div className="border-t border-white/20 pt-3 flex justify-between items-center">
-            //           <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 truncate pr-4">{p.category}</span>
-            //           <span className="text-[10px] uppercase tracking-[0.3em] text-white flex items-center gap-2 flex-shrink-0 font-semibold">
-            //             View <span className="text-[14px]">→</span>
-            //           </span>
-            //         </div>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </Link>
              <ProductCard key={p.id} product={p} />
           ))}
         </div>

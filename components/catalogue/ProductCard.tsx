@@ -49,10 +49,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="transform translate-y-0 lg:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
             <h3 className="font-serif text-[20px] md:text-[24px] text-white leading-[1.2] mb-2 md:mb-3">{product.name}</h3>
             <p className="text-[10px] uppercase tracking-[0.1em] text-white/80 leading-[1.8] line-clamp-2 md:line-clamp-3 mb-4 md:mb-6">
-              {product.argument || product.material}
+              {product.argument}
             </p>
-            <div className="border-t border-white/20 pt-3 md:pt-4 flex justify-between items-center">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 truncate pr-4">{product.material}</span>
+            <div className="border-t border-white/20 pt-3 md:pt-4 flex justify-end items-center">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 truncate pr-4">{product.craftNote}</span>
               <span className="text-[10px] uppercase tracking-[0.3em] text-white flex items-center gap-2 flex-shrink-0">
                 View <span className="text-[14px]">→</span>
               </span>

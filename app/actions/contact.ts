@@ -32,8 +32,6 @@ export async function sendContactEmail(formData: FormData) {
       text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nSubject: ${subject}\n\nMessage:\n${message}`,
       html: `
         <div style="font-family: font-serif; max-width: 600px; margin: 0 auto; background-color: #faf9f6; padding: 40px; border-top: 5px solid #a50000;">
-        <img src="/logo-contradictionsv2.png" alt="Contradictions Collection" style="width: 150px; margin-bottom: 30px;" />
-          
           <h2 style="margin-top: 0; color: #a50000; text-transform: uppercase; letter-spacing: 2px;">New Direct Inquiry</h2>
           <p style="color: #666; margin-bottom: 30px;">A new request has been transmitted from your website.</p>
           

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import React from 'react';
+import { sendChatMessage } from '@/app/actions/chat';
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -54,32 +55,22 @@ const Chatbot = () => {
         setIsLoading(true);
 
         try {
-            const res = await fetch('http://127.0.0.1:8000/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    messages: payloadMessages
-                })
-            });
+            const result = await sendChatMessage(payloadMessages);
 
-            if (!res.ok) {
-                throw new Error('Network response was not ok');
+            if (!result.success) {
+                throw new Error(result.error);
             }
-
-            const data = await res.json();
 
             // Add bot's reply
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: data.reply
+                content: result.reply || ''
             }]);
-        } catch (err) {
+        } catch (err: any) {
             console.error('Chat error:', err);
             setMessages(prev => [...prev, {
                 role: 'assistant',
-                content: 'Sorry, I encountered an error. Please try again later.'
+                content: err.message || 'Sorry, I encountered an error. Please try again later.'
             }]);
         } finally {
             setIsLoading(false);

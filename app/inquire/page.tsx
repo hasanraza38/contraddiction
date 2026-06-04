@@ -51,7 +51,7 @@ export default function Inquire() {
 
         {submitted ? (
           <div className="border border-[var(--color-border-light)] border-[0.5px] p-12 text-center animate-[fadeIn_1s_ease-out_both]">
-            <p className="font-serif italic text-2xl text-[var(--color-text-primary)] mb-4">Your letter has been sent.</p>
+            <p className="font-serif italic text-2xl text-[var(--color-text-primary)] mb-4">Your inquiry has been sent.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-16 w-full animate-[fadeIn_1s_ease-out_both]">

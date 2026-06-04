@@ -46,6 +46,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     .filter((p: any) => p.id !== product.id)
     .slice(0, 3);
 
+
+    
+
     
 
   return <ProductDetailClient product={product} relatedProducts={relatedProducts} />;

@@ -313,6 +313,8 @@ export const GET_RELATED_PRODUCTS = gql`
                 }
               }
               catalogueDetails {
+                craftNote
+                argument
                 material
                 origin
                 treatment
