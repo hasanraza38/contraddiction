@@ -211,12 +211,6 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
             priority
           />
         </div>
-        {/* <h1 className="relative z-10 text-3xl bg-[#9500024d] md:text-5xl font-serif italic text-(--color-text-primary) text-center font-bold leading-relaxed px-6 underline underline-offset-[5px] decoration-[0.5px] decoration-white ">
-          Form without compromise.<br/>
-          Material without apology.<br/>
-          The Collection.
-        </h1> */}
-
 
         <h1 className="relative z-10 text-3xl bg-[#aaa7a734] md:text-5xl font-serif italic text-(--color-text-primary) text-center font-extrabold leading-relaxed px-6 underline underline-offset-[9px] decoration-[2px] decoration-white/90 ">
           Form without compromise.<br/>
@@ -227,7 +221,6 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
       </div>
 
       {/* Filter Bar */}
-      {/* border-b border-(--color-brand-primary) border-b-[0.5px] */}
       <div className="py-6 md:py-8 w-full px-4 md:px-8">
         <div className=" mx-auto flex items-center gap-2 md:gap-4 group">
           {/* Left Arrow */}
@@ -245,7 +238,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
-            className={`flex-1 flex overflow-x-auto px-2 md:px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            className={`flex-1 flex overflow-x-auto bg-amber-400 px-2 md:px-6 py-2 gap-6 md:gap-12 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none ${isDragging ? 'cursor-grabbing' : ''}`}
           >
             {dynamicCategories.map((cat, i) => (
               <div key={cat} className="flex items-center gap-6 md:gap-12  shrink-0">
