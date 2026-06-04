@@ -41,7 +41,7 @@ export default function CatalogueClient({ products, fetchedCategories = [] }: Ca
     "lighting",
     "dressing-table",
     "seating",
-    "tables",
+    "consoles",
     "tv-unit",
     "wall-decor-and-accesories",
   ];
