@@ -6,8 +6,8 @@ const Timeline = () => {
         { stage: "The Showroom Experience", duration: "Initial Visit", desc: "Experience the physical presence, the weight, and the unyielding materials of our collection in person." },
         { stage: "Private Consultation", duration: "1–2 Weeks", desc: "A dialogue about your space. We don't take orders; we begin a conversation about architecture and intent." },
         { stage: "Material Sourcing", duration: "3–6 Weeks", desc: "We seek out specific veins of stone, exact ages of timber, and uncompromised raw materials." },
-        { stage: "The Atelier", duration: "12–20 Weeks", desc: "The physical labor begins in Karachi. No CNC machines. Every piece is carved, joined, and finished by hand." },
-        { stage: "White-Glove Transit", duration: "1–3 Weeks", desc: "Secure, climate-controlled transportation from our workshop directly to your residence." },
+        { stage: "The Atelier", duration: "12–20 Weeks", desc: "Every piece is imported, handcrafted by master craftspeople in specialized international ateliers with uncompromised precision." },
+        { stage: "White-Glove Transit", duration: "1–3 Weeks", desc: "Secure, climate-controlled transportation from the international workshop directly to your residence." },
         { stage: "To The Home", duration: "Installation", desc: "The piece is placed in its final environment. We leave the room, and the object begins its lifetime." }
     ];
     return (

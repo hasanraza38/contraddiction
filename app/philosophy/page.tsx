@@ -1,7 +1,23 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import UnderlineText from "@/components/ui/UnderlineText";
 import Timeline from "@/components/Timeline";
+
+export const metadata: Metadata = {
+  title: "Our Philosophy",
+  description: "On beauty that argues back, the integrity of materials, and handmade craftsmanship without compromise.",
+  openGraph: {
+    title: "Our Philosophy",
+    description: "On beauty that argues back, the integrity of materials, and handmade craftsmanship without compromise.",
+    url: "https://contradictions.pk/philosophy",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Philosophy",
+    description: "On beauty that argues back, the integrity of materials, and handmade craftsmanship without compromise.",
+  },
+};
 
 export default function Philosophy() {
   const sections = [

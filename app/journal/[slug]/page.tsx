@@ -1,8 +1,38 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchGraphQL } from "@/lib/fetchGraphQL";
 import { GET_JOURNAL_BY_SLUG, GET_JOURNAL_LIMITED } from "@/graphql/queries";
 import { transformJournal } from "@/lib/graphql-types";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const articleResponse = await fetchGraphQL(GET_JOURNAL_BY_SLUG, { slug: resolvedParams.slug }).catch(() => null);
+
+  if (!articleResponse?.data?.journal) {
+    return {
+      title: "Article Not Found",
+    };
+  }
+
+  const article = transformJournal(articleResponse.data.journal);
+
+  return {
+    title: article.title,
+    description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      url: `https://contradictions.pk/journal/${article.slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+    },
+  };
+}
 
 export const revalidate = 1800; // 30 minutes
 
@@ -52,8 +82,37 @@ export default async function JournalArticle({ params }: { params: Promise<{ slu
   // Use the middle paragraph as a pull quote if there are enough paragraphs
   const pullQuoteIndex = Math.floor(paragraphs.length / 2);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "description": article.excerpt,
+    "datePublished": article.date,
+    "author": {
+      "@type": "Organization",
+      "name": "Contradiction"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Contradiction",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://contradictions.pk/logo-contradictionsv2.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://contradictions.pk/journal/${article.slug}`
+    }
+  };
+
   return (
-    <div className="flex flex-col w-full bg-[#FFFFFF] items-center">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="flex flex-col w-full bg-[#FFFFFF] items-center">
       {/* Title Block */}
       <div className="w-full max-w-4xl pt-32 pb-16 px-6 flex flex-col items-center text-center">
         <h1 className="font-serif text-[48px] md:text-[64px] text-[var(--color-text-primary)] leading-[1.1] mb-8">
@@ -118,5 +177,6 @@ export default async function JournalArticle({ params }: { params: Promise<{ slu
         </div>
       </div>
     </div>
+    </>
   );
 }

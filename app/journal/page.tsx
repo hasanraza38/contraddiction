@@ -1,7 +1,23 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchGraphQL } from "@/lib/fetchGraphQL";
 import { GET_JOURNALS } from "@/graphql/queries";
 import { transformJournal } from "@/lib/graphql-types";
+
+export const metadata: Metadata = {
+  title: "The Journal",
+  description: "Glimpses into the atelier, material studies, and reflections on design and intent.",
+  openGraph: {
+    title: "The Journal",
+    description: "Glimpses into the atelier, material studies, and reflections on design and intent.",
+    url: "https://contradictions.pk/journal",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Journal",
+    description: "Glimpses into the atelier, material studies, and reflections on design and intent.",
+  },
+};
 
 export const revalidate = 1800; // 30 minutes
 

@@ -1,4 +1,7 @@
-import { gql } from "@apollo/client";
+export function gql(strings: TemplateStringsArray, ...values: any[]): any {
+  const query = strings.reduce((result, string, i) => result + string + (values[i] || ''), '');
+  return { loc: { source: { body: query } } };
+}
 
 // ── 1. GET ALL ────────────────────────────────────────────────────────────────
 export const GET_CATALOGUE_ITEMS = gql`

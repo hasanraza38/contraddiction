@@ -35,7 +35,7 @@ export default function ProtectedImage({
         className={className}
         sizes={sizes}
         priority={priority}
-        quality={quality || 0}
+        quality={quality || 10}
         draggable={false}
         onContextMenu={(e) => e.preventDefault()}
         onDragStart={(e) => e.preventDefault()}
