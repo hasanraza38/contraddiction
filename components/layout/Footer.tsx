@@ -55,6 +55,7 @@ const socialLinks = [
   }
 ];
 
+
 export default function Footer() {
   return (
     <footer className="w-full bg-[#FAF9F6]">
